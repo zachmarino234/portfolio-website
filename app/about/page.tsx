@@ -1,6 +1,4 @@
-import Header from "@/components/Header";
 import Image from "next/image";
-import Link from "next/link";
 import Headshot from "@/public/images/zach.png";
 
 export default function Home() {
