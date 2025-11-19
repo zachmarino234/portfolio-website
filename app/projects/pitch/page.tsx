@@ -4,6 +4,8 @@ export default function Pitch() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
             <div className="flex flex-col w-full gap-10 items-center">
+                <IframeLoader src={"https://www.pitchjourno.com/"} title={"Pitch website"} />
+                <p>After the conclusion of this project, I quickly made a website to host the cards so that anyone could use and download for free.</p>
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold">introduction</h2>
                 <p>Pitch is a design kit that provides journalists with a more structured method for brainstorming story ideas. I created this card deck for my College of Arts, Media, and Design (CAMD) directed study to answer the question of what it means to think like a designer as a non-designer. I analyzed various design kits and synthesized them with user research surrounding the pitch-identifying habits of journalists, creating a deck of cards with different prompts, games, and ideas to spark story ideas.</p>
