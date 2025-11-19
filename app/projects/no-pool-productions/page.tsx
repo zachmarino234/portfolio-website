@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Headshot from "@/public/images/zach.png";
+import IframeLoader from "@/components/IFrameLoader";
 
 export default function NoPoolProductions() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
             <div className="flex flex-col w-full gap-10 items-center">
-                <iframe className="max-w-3xl max-h-2xl w-full h-[650px]" src="https://no-pool.vercel.app/" allowFullScreen></iframe>
+                <IframeLoader src={"https://no-pool.vercel.app/"} title={"No Pool website"} />
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">introduction</h2>
                 <p>No Pool Productions is a new Broadway production start-up created by up-and-coming producer and founder of Theatrely, Kobi Kassal. I met him over the summer in New York, and I got the opportunity to design the brand identity and website for the company. Currently, the No Pool website is still on the placeholder version, but you can see my version before it gets released here!</p>

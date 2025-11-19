@@ -1,8 +1,10 @@
+import IframeLoader from "@/components/IFrameLoader";
+
 export default function Catalog8H() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
             <div className="flex flex-col w-full gap-10 items-center">
-                <iframe className="max-w-3xl max-h-2xl w-full h-[650px]" src="https://embed.figma.com/proto/bK05mbYW5HToF2nw9s8qR4/SNL-Project?page-id=508%3A1260&node-id=508-1493&p=f&viewport=317%2C377%2C0.39&scaling=scale-down&content-scaling=fixed&starting-point-node-id=508%3A1493&show-proto-sidebar=1&embed-host=share" allowFullScreen></iframe>
+                <IframeLoader src="https://embed.figma.com/proto/bK05mbYW5HToF2nw9s8qR4/SNL-Project?page-id=508%3A1260&node-id=508-1493&p=f&viewport=317%2C377%2C0.39&scaling=scale-down&content-scaling=fixed&starting-point-node-id=508%3A1493&show-proto-sidebar=1&embed-host=share" title="Catalog8H prototype"></IframeLoader>
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">introduction</h2>
                 <p>For my design degree capstone project, I created a social cataloging platform for SNL sketches called Catalog 8H. Catalog 8H (named after the studio they film SNL in) lets you track sketches you’ve watched, rate them, leave comments, view the cast, and see what your friends and the SNL community think.</p>
@@ -66,7 +68,7 @@ export default function Catalog8H() {
 
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">full documentation</h2>
-                <iframe className="max-w-3xl max-h-2xl w-full h-[650px]" src="https://embed.figma.com/slides/c4xSwJSRB2YpNyWXTUNr1a/Catalog-8H-Process-Documentation?node-id=1-348&embed-host=share"></iframe>
+                <IframeLoader src="https://embed.figma.com/slides/c4xSwJSRB2YpNyWXTUNr1a/Catalog-8H-Process-Documentation?node-id=1-348&embed-host=share" title="Catalog8H full documentation"></IframeLoader>
             </div>
 
         </main>

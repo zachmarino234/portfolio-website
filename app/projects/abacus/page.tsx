@@ -1,10 +1,11 @@
+import IframeLoader from "@/components/IFrameLoader";
 import Image from "next/image";
 
 export default function Abacus() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
             <div className="flex flex-col w-full gap-10 items-center">
-                <iframe className="max-w-3xl max-h-2xl w-full h-[650px]" src="https://embed.figma.com/design/7fK9op1Ncvsx2v1PE3g8RF/Spreadsheet-Application-Prototype?node-id=92-9&embed-host=share"></iframe>
+                <IframeLoader src="https://embed.figma.com/design/7fK9op1Ncvsx2v1PE3g8RF/Spreadsheet-Application-Prototype?node-id=92-9&embed-host=share" title="Abacus prototype"></IframeLoader>
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">introduction</h2>
                 <p>Abacus is a full-stack spreadsheet application coded in Typescript, using Express for the API and React for the frontend. It was created for my software engineering class in a group of 3. The other two worked on the backend logic, and I handled the API and frontend. We had to include a set of core requirements and 3 additional features. Our additional features were cell styling, undo/redo, and import/export functions.</p>
 
