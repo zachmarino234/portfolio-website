@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./gradientbg.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Zach Marino",
@@ -23,6 +24,7 @@ export default function RootLayout({
         <div className="relative z-10 flex min-w-screen flex-col items-center py-14 sm:py-28 px-8 sm:px-16">
           <Header />
           {children}
+          <Footer />
         </div>
       </body>
     </html>
