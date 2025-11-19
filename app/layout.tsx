@@ -7,6 +7,27 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Zach Marino",
   description: "Multi-hyphenate experience designer and web developer focused on media and entertainment",
+  openGraph: {
+    title: 'Zach Marino',
+    description: 'Multi-hyphenate experience designer and web developer focused on media and entertainment',
+    url: 'https://www.zmarino.com',
+    siteName: 'Zach Marino',
+    images: [
+      {
+        url: '/images/site_preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Zach Marino Logo',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Zach Marino',
+    description: 'Multi-hyphenate experience designer and web developer focused on media and entertainment',
+    images: ['/images/site_preview.png'],
+  },
 };
 
 export default function RootLayout({
