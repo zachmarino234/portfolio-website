@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #171717;
+  --foreground: #ffffff;
 
   --font-title: 'velzyland';
   --font-body: 'sofia-pro';
@@ -13,13 +13,6 @@
   --color-foreground: var(--foreground);
   --font-title: var(--font-title);
   --font-body: var(--font-body);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
