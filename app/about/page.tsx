@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Headshot from "@/public/images/zach.png";
 
-export default function Home() {
+export default function About() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
             <div className="flex flex-col w-full md:flex-row gap-10 items-center">
