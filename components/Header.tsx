@@ -79,7 +79,7 @@ useEffect(() => {
                         )}
                     </li>
                     <li>
-                        <Link href={"/Resume - Zach Marino - Nov 4.pdf"} target="_blank">resume</Link>
+                        <Link href={"/Resume Public - Zach Marino.pdf"} target="_blank">resume</Link>
                     </li>
 
                 </ul>
