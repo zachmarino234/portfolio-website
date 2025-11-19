@@ -7,27 +7,31 @@ import { FaX } from "react-icons/fa6";
 const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     function toggleMenu() {
         setIsOpen(!isOpen);
     }
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        };
-
-        if (isOpen) {
-            document.addEventListener('mousedown', handleClickOutside);
+useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+        if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target as Node)
+        ) {
+            setIsOpen(false);
         }
+    };
 
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isOpen]);
+    if (isOpen) {
+        document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, [isOpen]);
+
 
     return (
         <header className="flex w-full max-w-3xl items-center justify-between">
