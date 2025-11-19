@@ -1,4 +1,4 @@
-export default function Catalog8H() {
+export default function Pitch() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
             <div className="flex flex-col w-full gap-10 items-center">
