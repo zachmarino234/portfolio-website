@@ -21,8 +21,8 @@ const ProjectGrid = () => {
             <ProjectCard bgColor="#F75612" link={"pitch"} ariaLabel={"Pitch"} videoSrc="">
                 <Image src={pitch} alt="Catalog8H logo" className="w-3/4" />
             </ProjectCard>
-            <ProjectCard bgColor="#F0F0F0" link={"abacus"} ariaLabel={"Abacus"} videoSrc="">
-                <Image src={abacus} alt="Abacus logo" className="w-3/4" />
+            <ProjectCard bgColor="#F0F0F0" link={"abacus"} ariaLabel={"Abacus"} videoSrc="videos/abacus_video.mp4">
+                <Image src={abacus} alt="Abacus logo" className="w-3/4 p-3 bg-[#F0F0F0] rounded-md" />
             </ProjectCard>
         </section>
     );
