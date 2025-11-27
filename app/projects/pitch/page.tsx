@@ -1,8 +1,17 @@
 import IframeLoader from "@/components/IFrameLoader";
+import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function Pitch() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
+            <ProjectSchema
+                name="Pitch"
+                description="Card deck design kit used by journalists to brainstorm story ideas"
+                url="https://zmarino.com/projects/pitch"
+                keywords={['Experience Design', 'UI/UX Design', 'News Media', 'Journalism']}
+                organization="Northeastern University"
+                role="Creator"
+            />
             <div className="flex flex-col w-full gap-10 items-center">
                 <IframeLoader src={"https://www.pitchjourno.com/"} title={"Pitch website"} />
                 <p>After the conclusion of this project, I quickly made a website to host the cards so that anyone could use and download for free.</p>

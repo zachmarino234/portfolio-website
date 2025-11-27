@@ -1,10 +1,19 @@
 import Image from "next/image";
 import Headshot from "@/public/images/zach.png";
 import IframeLoader from "@/components/IFrameLoader";
+import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function NoPoolProductions() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
+            <ProjectSchema
+                name="No Pool Productions"
+                description="Logo and website designed and developed for No Pool Productions, a broadway production company"
+                url="https://zmarino.com/projects/no-pool-productions"
+                keywords={['Brand Design', 'Front-end Development', 'Broadway', 'No Pool Productions', 'Freelance']}
+                organization="No Pool Productions"
+                role="Freelance Design Consultant"
+            />
             <div className="flex flex-col w-full gap-10 items-center">
                 <IframeLoader src={"https://no-pool.vercel.app/"} title={"No Pool website"} />
 

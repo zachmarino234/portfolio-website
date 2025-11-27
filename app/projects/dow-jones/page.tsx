@@ -1,6 +1,16 @@
+import { ProjectSchema } from "@/schemas/ProjectSchema";
+
 export default function DowJones() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
+            <ProjectSchema
+                name="Dow Jones Product Design Internship"
+                description="Product design work at Dow Jones focusing on the B2B Newswires team and B2B initiatives"
+                url="https://zmarino.com/projects/dow-jones"
+                keywords={['Product Design', 'UX Design', 'News Media', 'Dow Jones', 'Internship']}
+                organization="Dow Jones"
+                role="Product Designer"
+            />
             <div className="flex flex-col w-full gap-10 items-center">
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">introduction</h2>

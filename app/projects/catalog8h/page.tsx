@@ -1,8 +1,17 @@
 import IframeLoader from "@/components/IFrameLoader";
+import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function Catalog8H() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
+            <ProjectSchema
+                name="Catalog 8H"
+                description="Social Cataloging Platform for SNL sketches"
+                url="https://zmarino.com/projects/catalog8h"
+                keywords={['Experience Design', 'Interaction Design', 'Brand Design', 'SNL', 'Entertainment']}
+                organization="Northeastern University"
+                role="Creator"
+            />
             <div className="flex flex-col w-full gap-10 items-center">
                 <IframeLoader src="https://embed.figma.com/proto/bK05mbYW5HToF2nw9s8qR4/SNL-Project?page-id=508%3A1260&node-id=508-1493&p=f&viewport=317%2C377%2C0.39&scaling=scale-down&content-scaling=fixed&starting-point-node-id=508%3A1493&show-proto-sidebar=1&embed-host=share" title="Catalog8H prototype"></IframeLoader>
 

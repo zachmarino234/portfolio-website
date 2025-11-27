@@ -1,9 +1,18 @@
 import IframeLoader from "@/components/IFrameLoader";
+import { ProjectSchema } from "@/schemas/ProjectSchema";
 import Image from "next/image";
 
 export default function Abacus() {
     return (
         <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
+            <ProjectSchema
+                name="Abacus"
+                description="Full-stack spreadsheet application"
+                url="https://zmarino.com/projects/abacus"
+                keywords={['Front-end development', 'React', 'Computer Science']}
+                organization="Northeastern University"
+                role="Creator"
+            />
             <div className="flex flex-col w-full gap-10 items-center">
                 <IframeLoader src="https://embed.figma.com/design/7fK9op1Ncvsx2v1PE3g8RF/Spreadsheet-Application-Prototype?node-id=92-9&embed-host=share" title="Abacus prototype"></IframeLoader>
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">introduction</h2>
@@ -13,7 +22,7 @@ export default function Abacus() {
                 <p>We were free to create the frontend whichever way we wanted, so long as it rendered what the backend did. Most other teams decided to re-render their spreadsheet whenever a change occurred, but we decided to take a different approach. Since our project had a large emphasis on individual cell customization, we wanted to make sure it was possible to re-render an individual cell when that was the only change. The whole spreadsheet would still need to be re-rendered when cell locations changed, but if the only change was the property of a single cell, then there was no need to re-render everything else.</p>
                 <p className="self-start">We implemented this by creating two React contexts, SelectedCellContext and GridContext.</p>
                 <p>SelectedCellContext would track the currently selected cell and handle updates. Specifically, I had a function called updateSelectedCellProperty(), which would take in a property and a value and pass that into a POST request, which would update the property in the backend. updateSelectedCellProperty() would then increment a useState hook called setUpdateTrigger, which would trigger the context to fetch the updated cell data via another function. That function would set the cell data in a useState hook, and that hook is then passed into the instance of the cell.</p>
-                <Image src={"/images/abacus_snippet_1.png"} alt={"Abacus Code Snippet 1"} width={500} height={500}/>
+                <Image src={"/images/abacus_snippet_1.png"} alt={"Abacus Code Snippet 1"} width={500} height={500} />
                 <p>Entire spreadsheet re-rendering is actually handled in the spreadsheet component itself using useMemo hooks, but we needed a way to track when to re-render. This was especially the case when the number of rows and columns would change. GridContext would track this, and GridDataProvider would support it too. The custom hook below would handle the initial render of rows and columns.</p>
                 <Image src={"/images/abacus_snippet_2.png"} alt={"Abacus Code Snippet 2"} width={500} height={500} />
                 <p>Our API was a pretty straightforward Express router setup. My partners created public-facing methods to access the Spreadsheet Model and the API calls those getter and setter methods. This separation between the backend and frontend lets us sanitize inputs and outputs, preventing errors in the backend or frontend from affecting each other. updateSelectedCellProperty() (from SelectedCellContext) would send POST requests to a large route that had a switch case for each possible cell property.</p>
