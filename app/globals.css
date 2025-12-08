@@ -24,4 +24,5 @@ p {
   font-family: var(--font-body);
   font-weight: normal;
   font-style: normal;
+  line-height: 1.6;
 }
