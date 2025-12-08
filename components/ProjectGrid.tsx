@@ -5,10 +5,14 @@ import dowjones from "@/public/images/dowjones_logo.png";
 import catalog from "@/public/images/8h_logo.png";
 import pitch from "@/public/images/pitch_logo.png";
 import abacus from "@/public/images/abacus_logo.png";
+import fantasysportsball from "@/public/images/fantasy_sportsball/logo.svg";
 
 const ProjectGrid = () => {
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
+            <ProjectCard bgColor="#294268" link={"fantasy-sportsball"} ariaLabel={"Fantasy Sportsball"} videoSrc="videos/fantasy_sportsball.mp4">
+                <Image src={fantasysportsball} alt="Fantasy Sportsball Logo" />
+            </ProjectCard>
             <ProjectCard bgColor="#0396FF" link={"no-pool-productions"} ariaLabel={"No Pool Productions"} videoSrc="videos/npp_video.mp4">
                 <Image src={nopool} alt="No Pool Productions logo" className="w-1/2" />
             </ProjectCard>

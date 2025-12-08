@@ -53,6 +53,9 @@ useEffect(() => {
                                         </div>
                                         <ul className="flex flex-col gap-5 text-2xl" onClick={toggleMenu}>
                                             <li>
+                                                <Link href={"/projects/fantasy-sportsball"}>fantasy sportsball</Link>
+                                            </li>
+                                            <li>
                                                 <Link href={"/projects/no-pool-productions"}>no pool productions</Link>
                                             </li>
                                             <li>
