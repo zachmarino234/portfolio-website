@@ -11,6 +11,7 @@ import card_front from "@/public/images/fantasy_sportsball/iteration_1_card_fron
 import card_back from "@/public/images/fantasy_sportsball/iteration_1_card_back.webp";
 import card_front_2 from "@/public/images/fantasy_sportsball/iteration_2_card_front.webp";
 import card_back_2 from "@/public/images/fantasy_sportsball/iteration_2_card_back.webp";
+import card_all from "@/public/images/fantasy_sportsball/all_cards.webp";
 
 export default function FantasySportsball() {
     return (
@@ -25,6 +26,7 @@ export default function FantasySportsball() {
             />
             <div className="flex flex-col w-full gap-10 items-center">
                 <Image src={hero} alt={"Fantasy Sportball Hero Image"} className="border-2 border-white"></Image>
+                <Image src={card_all} alt={"All Cards"}></Image>
                 <p className="self-start">Fantasy Sportsball is a new card game where you compete with your friends to see who can best predict what will happen this upcoming Super Bowl — commercials and all.</p>
                 <p>
                     At the beginning of the game, each player drafts four cards. Whenever that card happens on screen, you get points. Whoever gets the fewest points loses and has to do a punishment decided beforehand.
