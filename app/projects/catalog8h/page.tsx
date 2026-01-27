@@ -1,9 +1,10 @@
 import IframeLoader from "@/components/IFrameLoader";
+import PageMain from "@/components/PageMain";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function Catalog8H() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center">
+        <PageMain>
             <ProjectSchema
                 name="Catalog 8H"
                 description="Social Cataloging Platform for SNL sketches"
@@ -80,6 +81,6 @@ export default function Catalog8H() {
                 <IframeLoader src="https://embed.figma.com/slides/c4xSwJSRB2YpNyWXTUNr1a/Catalog-8H-Process-Documentation?node-id=1-348&embed-host=share" title="Catalog8H full documentation"></IframeLoader>
             </div>
 
-        </main>
+        </PageMain>
     );
 }

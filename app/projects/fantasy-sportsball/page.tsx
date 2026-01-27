@@ -16,7 +16,7 @@ import card_all from "@/public/images/fantasy_sportsball/all_cards.webp";
 
 export default function FantasySportsball() {
     return (
-			<PageMain>
+        <PageMain>
             <ProjectSchema
                 name="Fantasy Sportsball"
                 description="A new card game for your friends who don't like football"
@@ -125,6 +125,6 @@ export default function FantasySportsball() {
                 <p>If I took this project further, I would do another iteration on the visual design and create a 21+ expansion deck. The visual design is good considering the context, but I think it could feel more polished and brighter. Since this game is to be played during the Super Bowl, that intrinsically makes it a drinking game. I want the game to be (relatively) family-friendly, so an optional expansion gives me that flexibility. This expansion would introduce a new category of card that makes people take a sip of alcohol whenever the chosen instance occurs during the game.</p>
             </div>
 
-			</PageMain>
+        </PageMain>
     );
 }

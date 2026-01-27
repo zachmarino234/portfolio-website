@@ -1,10 +1,11 @@
 import IframeLoader from "@/components/IFrameLoader";
+import PageMain from "@/components/PageMain";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 import Image from "next/image";
 
 export default function Abacus() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10">
+        <PageMain>
             <ProjectSchema
                 name="Abacus"
                 description="Full-stack spreadsheet application"
@@ -47,6 +48,6 @@ export default function Abacus() {
 
             </div>
 
-        </main>
+        </PageMain>
     );
 }

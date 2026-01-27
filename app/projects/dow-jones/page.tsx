@@ -1,8 +1,9 @@
+import PageMain from "@/components/PageMain";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function DowJones() {
     return (
-			<main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10">
+        <PageMain>
             <ProjectSchema
                 name="Dow Jones Product Design Internship"
                 description="Product design work at Dow Jones focusing on the B2B Newswires team and B2B initiatives"
@@ -30,6 +31,6 @@ export default function DowJones() {
                 </p>
             </div>
 
-        </main>
+        </PageMain>
     );
 }

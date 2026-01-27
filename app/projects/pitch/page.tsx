@@ -1,9 +1,10 @@
 import IframeLoader from "@/components/IFrameLoader";
+import PageMain from "@/components/PageMain";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function Pitch() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10">
+        <PageMain>
             <ProjectSchema
                 name="Pitch"
                 description="Card deck design kit used by journalists to brainstorm story ideas"
@@ -38,6 +39,6 @@ export default function Pitch() {
                 <IframeLoader src={"https://embed.figma.com/slides/H1QxQ68WMjtA6wrn0egYWp/Pitch-Project-Presentation?node-id=1-587&embed-host=share"} title={"Pitch full documentation"} />
             </div>
 
-        </main>
+        </PageMain>
     );
 }

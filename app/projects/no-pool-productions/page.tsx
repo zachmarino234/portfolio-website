@@ -2,10 +2,11 @@ import Image from "next/image";
 import Headshot from "@/public/images/zach.png";
 import IframeLoader from "@/components/IFrameLoader";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
+import PageMain from "@/components/PageMain";
 
 export default function NoPoolProductions() {
     return (
-			<main className="flex min-h-screen w-full max-w-3xl flex-col items-center">
+        <PageMain>
             <ProjectSchema
                 name="No Pool Productions"
                 description="Logo and website designed and developed for No Pool Productions, a broadway production company"
@@ -56,6 +57,6 @@ export default function NoPoolProductions() {
                 </svg>
 
             </div>
-        </main>
+        </PageMain>
     );
 }
