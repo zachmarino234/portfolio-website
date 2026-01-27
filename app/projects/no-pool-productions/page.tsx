@@ -5,7 +5,7 @@ import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function NoPoolProductions() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
+			<main className="flex min-h-screen w-full max-w-3xl flex-col items-center">
             <ProjectSchema
                 name="No Pool Productions"
                 description="Logo and website designed and developed for No Pool Productions, a broadway production company"

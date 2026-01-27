@@ -3,7 +3,7 @@ import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function Catalog8H() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-12 sm:py-24">
+        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center">
             <ProjectSchema
                 name="Catalog 8H"
                 description="Social Cataloging Platform for SNL sketches"

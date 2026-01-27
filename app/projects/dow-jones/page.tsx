@@ -2,7 +2,7 @@ import { ProjectSchema } from "@/schemas/ProjectSchema";
 
 export default function DowJones() {
     return (
-        <main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10 py-12 sm:py-24">
+			<main className="flex min-h-screen w-full max-w-3xl flex-col items-center gap-10">
             <ProjectSchema
                 name="Dow Jones Product Design Internship"
                 description="Product design work at Dow Jones focusing on the B2B Newswires team and B2B initiatives"
