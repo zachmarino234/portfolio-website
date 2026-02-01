@@ -82,10 +82,13 @@ const Header = () => {
                                 onClick={toggleMenu}
                                 aria-haspopup="true"
                                 aria-expanded={isOpen}
+                                aria-controls="projects-menu"
                             >
                                 work
                             </button>
                             <div
+                                id="projects-menu"
+                                aria-hidden={!isOpen}
                                 className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-150 ${
                                     isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                                 }`}
