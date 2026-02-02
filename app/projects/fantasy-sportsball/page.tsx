@@ -26,8 +26,15 @@ export default function FantasySportsball() {
                 role="Creator"
             />
             <div className="flex flex-col w-full gap-10 items-center">
-                <Image src={hero} alt={"Fantasy Sportball Hero Image"} className="border-2 border-white"></Image>
-                <Image src={card_all} alt={"All Cards"}></Image>
+                <Image
+                    src={hero}
+                    alt="Fantasy Sportsball hero graphic showing the game title with several card background designs"
+                    className="border-2 border-white"
+                />
+                <Image
+                    src={card_all}
+                    alt="All Fantasy Sportsball cards laid out together"
+                />
                 <p className="self-start">Fantasy Sportsball is a new card game where you compete with your friends to see who can best predict what will happen this upcoming Super Bowl — commercials and all.</p>
                 <p>
                     At the beginning of the game, each player drafts four cards. Whenever that card happens on screen, you get points. Whoever gets the fewest points loses and has to do a punishment decided beforehand.
@@ -63,25 +70,41 @@ export default function FantasySportsball() {
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">development</h2>
                 <p>Starting off my process, I sketched out a storyboard to flesh out the experience around my project, and I cut out different sizes of cards using paper to get an idea of what size card I should make.</p>
                 <div className="w-full flex flex-row gap-5">
-                    <div className="h-full flex flex-col">
-                        <Image src={storyboard} alt="Storyboard" className="border border-white rounded-md" />
-                        <p>Storyboard</p>
-                    </div>
-                    <div className="h-full flex flex-col">
-                        <Image src={card_test} alt="Card Test" className="border border-white rounded-md" />
-                        <p>Card Size Test</p>
-                    </div>
+                    <figure className="h-full flex flex-col">
+                        <Image
+                            src={storyboard}
+                            alt="Storyboard"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>Storyboard</figcaption>
+                    </figure>
+                    <figure className="h-full flex flex-col">
+                        <Image
+                            src={card_test}
+                            alt="Card Test"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>Card Size Test</figcaption>
+                    </figure>
                 </div>
                 <p>I used my storyboard to flesh out my prototype instructions and drafted some card topics with arbitrary point values for the game.</p>
                 <div className="w-full flex flex-row gap-5">
-                    <div className="h-full flex flex-col">
-                        <Image src={card_front} alt="1st Iteration Card Front" className="border border-white rounded-md" />
-                        <p>1st Iteration Card Front</p>
-                    </div>
-                    <div className="h-full flex flex-col">
-                        <Image src={card_back} alt="1st Iteration Card Back" className="border border-white rounded-md" />
-                        <p>1st Iteration Card Back</p>
-                    </div>
+                    <figure className="h-full flex flex-col">
+                        <Image
+                            src={card_front}
+                            alt="Front of the first iteration Fantasy Sportsball card"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>1st Iteration Card Front</figcaption>
+                    </figure>
+                    <figure className="h-full flex flex-col">
+                        <Image
+                            src={card_back}
+                            alt="Back of the first iteration Fantasy Sportsball card"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>1st Iteration Card Back</figcaption>
+                    </figure>
                 </div>
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">testing</h2>
@@ -96,10 +119,14 @@ export default function FantasySportsball() {
                 </ol>
                 <p>The ideal time and place to test this would be the Super Bowl (as that is what this game is for), but that isn’t an option until February. Thankfully, I could reasonably test the football, broadcast, and commercial categories during a regular-season game.</p>
                 <p>I got two friends and I together over Thanksgiving break, and we watched two regular-season football games: Bears at Eagles on the 28th, and Bills at Steelers on the 30th. One tester was a frequent football watcher, while the other tester and I were infrequent watchers. Besides playing the game together, I also tracked the occurrences of many different events during the game, like flags, replays, and even when the commentators would draw yellow circles on screen.</p>
-                <div>
-                    <Image src={testing} alt="Testing Session Notes" className="border border-white rounded-md" />
-                    <p>Testing Session Notes</p>
-                </div>
+                <figure>
+                    <Image
+                        src={testing}
+                        alt="Testing Session Notes"
+                        className="border border-white rounded-md"
+                    />
+                    <figcaption>Testing Session Notes</figcaption>
+                </figure>
                 <p><strong>Both participants found that the game made watching football more engaging.</strong> Paying attention to the cards was manageable, as there were only two cards that could appear at a time. After the first game, we realized that cards like first down and coach close-up happened way too often, so that even 1 point per instance was too much compared to the rest of the point values. For the second game, I scaled up the point values, which were much more balanced, though I over-corrected the player close-up card. This is because the broadcast provider changed between games (Prime Video to CBS), and CBS was much more keen on doing close-ups on players rather than coaches.</p>
 
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">refinement</h2>
@@ -107,18 +134,30 @@ export default function FantasySportsball() {
                 <p><strong>While the data I gathered was useful to solve my problem in terms of the product, I realized that tracking that data while trying to user test made for a week user test on the experience side. Next time, I would split up data gathering and user testing so that I can focus on each individually.</strong></p>
                 <p>I also did another iteration on the visual design of my cards. The backs of the cards were a little too basic for my tastes, and I wanted a clearer way of differentiating between them besides color. I added decals in a shade of the original color to each card. The football cards have a football helmet, the broadcast cards have a football play with circles and crosses overlaid, the commercial cards have key lights, and the halftime card has Left Shark, from the XLIX halftime show. These also give my cards a more cohesive personality.</p>
                 <div className="w-full flex flex-row gap-5">
-                    <div className=" w-1/3 h-full flex flex-col">
-                        <Image src={card_front_2} alt="1st Iteration Card Back" className="border border-white rounded-md" />
-                        <p>2nd Iteration Card Front</p>
-                    </div>
-                    <div className="w-1/3 flex flex-col">
-                        <Image src={card_back_2} alt="1st Iteration Card Back" className="border border-white rounded-md" />
-                        <p>2nd Iteration Card Back</p>
-                    </div>
-                    <div className="w-1/3 h-full flex flex-col">
-                        <Image src={card_gif} alt={"New card back designs"} className="border border-white rounded-md" />
-                        <p>New Card Back Designs</p>
-                    </div>
+                    <figure className=" w-1/3 h-full flex flex-col">
+                        <Image
+                            src={card_front_2}
+                            alt="1st Iteration Card Back"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>2nd Iteration Card Front</figcaption>
+                    </figure>
+                    <figure className="w-1/3 flex flex-col">
+                        <Image
+                            src={card_back_2}
+                            alt="1st Iteration Card Back"
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>2nd Iteration Card Back</figcaption>
+                    </figure>
+                    <figure className="w-1/3 h-full flex flex-col">
+                        <Image
+                            src={card_gif}
+                            alt={"New card back designs"}
+                            className="border border-white rounded-md"
+                        />
+                        <figcaption>New Card Back Designs</figcaption>
+                    </figure>
                 </div>
                 <h2 className="self-start text-xl sm:text-2xl font-bold -mb-5">takeaways</h2>
                 <p><strong>This project tested my skills as an experience designer, but I came out on the other side as a much better designer.</strong> Up to this point, I have learned thing-based design as an interaction designer. While this form of design is still useful in many contexts, if I am to focus on the experiential forms of design, I need to remove myself from the thing-based paradigm. I am still learning as an experience designer, but being able to consider experience before form will improve all of the design work I do in the future.</p>
