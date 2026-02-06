@@ -3,6 +3,7 @@ import Headshot from "@/public/images/zach.png";
 import PageMain from "@/components/PageMain";
 import { PersonSchema } from "@/schemas/PersonSchema";
 import SocialIcons from "@/components/SocialIcons";
+import IframeLoader from "@/components/IFrameLoader";
 
 export default function About() {
     return (
@@ -28,6 +29,9 @@ export default function About() {
                 </div>
                 <Image src={Headshot} alt={"Zach Marino"} className="w-full md:w-1/2 aspect-square rounded-2xl bg-[#0a0a1e]/85 border border-white/10 shadow-lg" />
             </div>
+            <h2 className="self-start text-xl sm:text-2xl font-bold mt-10 -mb-5">upcoming website changes</h2>
+            <p className="self-start -mb-5">This site is designed and coded by me. Upcoming changes can be viewed here!</p>
+            <IframeLoader src="https://embed.figma.com/design/zoC5CHeYEI1w5E0z6AXj6c/Portfolio?node-id=0-1&embed-host=share" title="Figma file showcasing upcoming changes for the website"></IframeLoader>
 
         </PageMain>
     );
