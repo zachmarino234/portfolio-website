@@ -152,7 +152,7 @@ const Header = () => {
                         </li>
                         <li>
                             <Link
-                                href={"/Resume Public - Zach Marino.pdf"}
+                                href={"/Public Resume - Zach Marino.pdf"}
                                 target="_blank"
                                 className="font-body rounded-full border border-white/10 px-3 py-1 hover:bg-white/5 transition-colors"
                             >
