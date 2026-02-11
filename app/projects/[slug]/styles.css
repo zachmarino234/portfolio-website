@@ -1,0 +1,42 @@
+.project-page h1 {
+    font-size: 20px;
+}
+
+.project-page h2 {
+    font-size: 16px;
+}
+
+.project-page h3 {
+    font-variant: small-caps;
+    font-size: 12px;
+}
+
+.project-page ul {
+    font-size: 12px;
+}
+
+.project-page p {
+    font-size: 12px;
+}
+
+@media (width >=40rem) {
+    .project-page h1 {
+        font-size: 28px;
+    }
+    
+    .project-page h2 {
+        font-size: 22px;
+    }
+
+    .project-page h3 {
+        font-size: 20px;
+    }
+
+    .project-page ul {
+        font-size: 16px;
+    }
+
+    .project-page p {
+        font-size: 16px;
+    }
+}

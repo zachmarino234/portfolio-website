@@ -4,7 +4,7 @@ import { LuMail } from "react-icons/lu";
 
 const SocialIcons = () => {
     return (
-        <div className="flex gap-5">
+        <div className="flex gap-3 sm:gap-5">
             <Link href={"mailto:hello@zmarino.com"} aria-label="Email">
                 <LuMail className="w-5 h-5" />
             </Link>

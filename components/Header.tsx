@@ -3,7 +3,17 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const Header = () => {
+type ProjectLink = {
+    slug: string;
+    title: string;
+    deliverableName?: string;
+};
+
+interface HeaderProps {
+    projects?: ProjectLink[];
+}
+
+const Header = ({ projects = [] }: HeaderProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -59,10 +69,10 @@ const Header = () => {
             className={`fixed inset-x-0 top-3 z-40 flex justify-center px-3 sm:top-4 sm:px-0 transition-all duration-300 ${isVisible || isOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-full"
                 }`}
         >
-            <div className="flex w-full max-w-5xl items-center justify-between gap-3 sm:gap-6 rounded-2xl bg-[#0a0a1e]/85 border border-white/10 px-3 py-2 sm:px-6 sm:py-3 shadow-lg">
+            <div className="flex w-full max-w-6xl items-center justify-between gap-3 sm:gap-6 rounded-2xl bg-[#0a0a1e]/85 border border-white/10 px-3 py-2 sm:px-6 sm:py-3 shadow-lg">
                 <Link
                     href={"/"}
-                    className="font-title text-md sm:text-3xl ml-3 mb-3 text-white hover:text-purple-400/50 transition-colors"
+                    className="font-title text-md sm:text-3xl ml-3 mb-3 text-white hover:text-purple-400 transition-colors"
                 >
                     Zach Marino
                 </Link>
@@ -95,7 +105,7 @@ const Header = () => {
                             >
                                 <div
                                     ref={dropdownRef}
-                                    className={`relative top-56 sm:top-64 w-[90%] max-w-md rounded-3xl border border-white/10 bg-[#0a0a1e]/95 p-6 sm:p-8 shadow-2xl transform transition-transform duration-150 ${
+                                    className={`relative top-72 sm:top-90 w-[90%] max-w-md rounded-3xl border border-white/10 bg-[#0a0a1e]/95 p-6 sm:p-8 shadow-2xl transform transition-transform duration-150 ${
                                         isOpen ? "translate-y-0" : "-translate-y-2"
                                     }`}
                                 >
@@ -113,39 +123,32 @@ const Header = () => {
                                         </button>
                                     </div>
                                     <ul
-                                        className="mt-6 flex flex-col gap-4 text-xl sm:text-2xl"
+                                        className="mt-8 flex flex-col gap-6 text-xl sm:text-2xl"
                                         onClick={toggleMenu}
                                     >
-                                        <li>
-                                            <Link href={"/projects/fantasy-sportsball"}>
-                                                fantasy sportsball
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href={"/projects/no-pool-productions"}>
-                                                no pool productions
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href={"/projects/dow-jones"}>
-                                                dow jones
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href={"/projects/catalog8h"}>
-                                                catalog8H
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href={"/projects/pitch"}>
-                                                pitch
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href={"/projects/abacus"}>
-                                                abacus
-                                            </Link>
-                                        </li>
+                                        {projects.length > 0 ? (
+                                            projects.map((project) => (
+                                                <li key={project.slug}>
+                                                    <Link
+                                                        href={`/projects/${project.slug}`}
+                                                        className="hover:text-purple-400 transition-colors"
+                                                    >
+                                                        <span className="block text-xl">
+                                                            {project.deliverableName || project.title}
+                                                        </span>
+                                                        {project.title && project.title !== project.deliverableName && (
+                                                            <span className="mt-1 block text-sm sm:text-base text-white/70">
+                                                                {project.title}
+                                                            </span>
+                                                        )}
+                                                    </Link>
+                                                </li>
+                                            ))
+                                        ) : (
+                                            <li className="text-sm text-white/60">
+                                                No projects available
+                                            </li>
+                                        )}
                                     </ul>
                                 </div>
                             </div>

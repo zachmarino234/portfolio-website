@@ -1,35 +1,78 @@
-import Image from "next/image";
+import { defineQuery } from "next-sanity";
 import ProjectCard from "./ProjectCard";
-import nopool from "@/public/images/NPP_logo_wordmark_bluebg.png";
-import dowjones from "@/public/images/dowjones_logo.png";
-import catalog from "@/public/images/8h_logo.png";
-import pitch from "@/public/images/pitch_logo.png";
-import abacus from "@/public/images/abacus_logo.png";
-import fantasysportsball from "@/public/images/fantasy_sportsball/logo.svg";
+import { sanityFetch } from "@/sanity/live";
+import { urlFor } from "@/sanity/lib/image";
 
-const ProjectGrid = () => {
+type ImageValue = {
+    _type: "image";
+    asset?: {
+        _ref?: string;
+    } | null;
+};
+
+type ProjectForGrid = {
+    _id: string;
+    slug: string;
+    title: string;
+    shortDescription?: string;
+    heroImage?: ImageValue;
+    cardTags?: string[];
+    displayOrder?: number;
+};
+
+const projectsForGridQuery = defineQuery(`
+  *[_type == "project" && defined(slug.current) && heroImage.asset != null]{
+    _id,
+    "slug": slug.current,
+    title,
+    shortDescription,
+    heroImage,
+    cardTags,
+        "displayOrder": orderRank
+    } | order(coalesce(displayOrder, 999) asc, title asc)
+`);
+
+function getImageUrl(image?: ImageValue) {
+  if (!image || !image.asset || !image.asset._ref) return undefined;
+
+  try {
+    return urlFor(image)
+      .width(1800)      // 3x the old width for retina
+      .height(840)      // keep the same aspect ratio
+      .auto("format")   // optional: let Sanity choose WebP/AVIF where possible
+      .url();
+  } catch {
+    return undefined;
+  }
+}
+
+const ProjectGrid = async () => {
+    const { data } = await sanityFetch({
+        query: projectsForGridQuery,
+    });
+
+    const projects = (data || []).filter((project: ProjectForGrid) => getImageUrl(project.heroImage));
+
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
-            <ProjectCard bgColor="#294268" link={"fantasy-sportsball"} ariaLabel={"Fantasy Sportsball"} videoSrc="videos/fantasy_sportsball.mp4">
-                <Image src={fantasysportsball} alt="Fantasy Sportsball Logo" />
-            </ProjectCard>
-            <ProjectCard bgColor="#0396FF" link={"no-pool-productions"} ariaLabel={"No Pool Productions"} videoSrc="videos/npp_video.mp4">
-                <Image src={nopool} alt="No Pool Productions logo" className="w-1/2" />
-            </ProjectCard>
-            <ProjectCard bgColor="#F0F0F0" link={"dow-jones"} ariaLabel={"Dow Jones"} videoSrc="">
-                <Image src={dowjones} alt="No Pool Productions logo" className="w-1/2" />
-            </ProjectCard>
-            <ProjectCard bgColor="#141B1F" link={"catalog8h"} ariaLabel={"Catalog8H"} videoSrc="">
-                <Image src={catalog} alt="Catalog8H logo" className="w-3/4" />
-            </ProjectCard>
-            <ProjectCard bgColor="#F75612" link={"pitch"} ariaLabel={"Pitch"} videoSrc="">
-                <Image src={pitch} alt="Catalog8H logo" className="w-3/4" />
-            </ProjectCard>
-            <ProjectCard bgColor="#F0F0F0" link={"abacus"} ariaLabel={"Abacus"} videoSrc="videos/abacus_video.mp4">
-                <Image src={abacus} alt="Abacus logo" className="w-3/4 p-3 bg-[#F0F0F0] rounded-md" />
-            </ProjectCard>
+        <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
+            {projects.map((project: ProjectForGrid, index: number) => {
+                const heroUrl = getImageUrl(project.heroImage)!;
+                const orderLabel = project.displayOrder ?? index + 1;
+
+                return (
+                    <ProjectCard
+                        key={project._id}
+                        slug={project.slug}
+                        title={project.title}
+                        shortDescription={project.shortDescription}
+                        tags={project.cardTags}
+                        heroImageUrl={heroUrl}
+                        orderLabel={orderLabel}
+                    />
+                );
+            })}
         </section>
     );
-}
+};
 
 export default ProjectGrid;

@@ -3,7 +3,10 @@ import "./globals.css";
 import "./gradientbg.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SanityLive, sanityFetch } from "@/sanity/live";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { defineQuery } from "next-sanity";
 
 export const metadata: Metadata = {
   title: "Zach Marino",
@@ -31,11 +34,43 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+type ProjectForMenu = {
+  slug: string;
+  title: string;
+  deliverableName?: string;
+  displayOrder?: number;
+};
+
+const projectsForMenuQuery = defineQuery(`
+  *[_type == "project" && defined(slug.current) && heroImage.asset != null]{
+    "slug": slug.current,
+    title,
+    deliverableName,
+    "displayOrder": orderRank
+  } | order(coalesce(displayOrder, 999) asc, title asc)
+`);
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data } = await sanityFetch({
+    query: projectsForMenuQuery,
+  });
+
+  interface ProjectDataForMenu {
+    slug: string;
+    title: string;
+    deliverableName?: string;
+  }
+
+  const projectsForMenu: ProjectForMenu[] = (data ?? []).map((project: ProjectDataForMenu) => ({
+    slug: project.slug,
+    title: project.title,
+    deliverableName: project.deliverableName,
+  }));
+
   return (
     <html lang="en">
       <head>
@@ -53,16 +88,18 @@ export default function RootLayout({
         </script>
       <meta name="theme-color" content="#0a0a1e"/>
       </head>
-      <body className="bg-[#0a0a1e]">
+      <body className="bg-[#0a0a1e] overflow-x-hidden">
         <div className="gradient-background-fixed" />
         <div className="relative z-10 flex min-h-screen w-full justify-center">
-          <div className="w-full max-w-5xl gap-10 px-4 sm:px-6 lg:px-8 py-7 sm:py-14 flex flex-col items-center">
-            <Header />
+          <div className="w-full max-w-6xl gap-10 px-4 sm:px-6 lg:px-8 py-7 sm:py-14 flex flex-col items-center">
+            <Header projects={projectsForMenu} />
             {children}
             <Analytics />
             <Footer />
           </div>
         </div>
+        <SanityLive />
+        <VisualEditing />
       </body>
     </html>
   );

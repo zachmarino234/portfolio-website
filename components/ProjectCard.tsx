@@ -1,72 +1,65 @@
-'use client'
 import Link from "next/link";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface ProjectCardProps {
-    children: React.ReactNode;
-    bgColor?: string;
-    link: string;
-    ariaLabel: string;
-    videoSrc?: string;
+    slug: string;
+    title: string;
+    shortDescription?: string;
+    tags?: string[];
+    heroImageUrl: string;
+    orderLabel?: number;
 }
 
-const ProjectCard = ({ children, bgColor, link, ariaLabel, videoSrc }: ProjectCardProps) => {
-    const [isPlaying, setIsPlaying] = useState(false);
-
-    const handleMouseEnter = () => {
-        setIsPlaying(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsPlaying(false);
-    };
+const ProjectCard = ({
+    slug,
+    title,
+    shortDescription,
+    tags,
+    heroImageUrl,
+    orderLabel,
+}: ProjectCardProps) => {
+    const tagsString = (tags || []).join(", ");
+    const displayOrder = typeof orderLabel === "number" ? orderLabel : undefined;
 
     return (
-        <Link 
-            href={"/projects/" + link} 
-            aria-label={ariaLabel} 
-            className="relative w-full aspect-square flex flex-col p-10 justify-center items-center gap-2.5 rounded-md overflow-hidden" 
-            style={{ backgroundColor: bgColor || '#d9d9d9' }}
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
+        <Link
+            href={`/projects/${slug}`}
+            aria-label={title}
+            className="group relative flex w-full max-w-[650px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a1e]/85 shadow-sm transition duration-300 hover:bg-[#0a0a1e] hover:shadow-[0_4px_4px_2px_rgba(0,0,0,0.25)]"
         >
-            {/* Video background with fade-in */}
-            <AnimatePresence>
-                {isPlaying && videoSrc && (
-                    <motion.video
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover z-10"
-                    >
-                        <source src={videoSrc} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </motion.video>
-                )}
-            </AnimatePresence>
+            {displayOrder !== undefined && (
+                <span className="pointer-events-none absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-xs font-medium text-white/80">
+                    {String(displayOrder).padStart(2, "0")}
+                </span>
+            )}
 
-            {/* Black gradient overlay with fade-in */}
-            <AnimatePresence>
-                {isPlaying && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60 z-20" 
-                    />
-                )}
-            </AnimatePresence>
+            <div className="relative h-[210px] w-full overflow-hidden sm:h-[280px]">
+                <Image
+                    src={heroImageUrl}
+                    alt={title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                />
+            </div>
 
-            {/* Logo - stays on top */}
-            <div className="relative z-30 flex items-center justify-center w-full">
-                {children}
+            <div className="flex flex-col gap-5 pt-3 pb-5 px-4 text-white sm:px-7 sm:pt-5 sm:pb-7">
+                {tagsString && (
+                    <p className="small-caps self-center font-normal text-center text-white sm:text-left">
+                        {tagsString}
+                    </p>
+                )}
+
+                <div className="flex flex-col gap-2 whitespace-pre-wrap">
+                    <h3 className="text-base font-semibold leading-normal sm:text-xl sm:leading-8">
+                        {title}
+                    </h3>
+                    {shortDescription && (
+                        <p className="text-xs leading-5 text-white/80 sm:text-base sm:leading-[1.6]">
+                            {shortDescription}
+                        </p>
+                    )}
+                </div>
             </div>
         </Link>
     );
