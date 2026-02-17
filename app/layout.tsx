@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SanityLive, sanityFetch } from "@/sanity/live";
 import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 import { defineQuery } from "next-sanity";
 
 export const metadata: Metadata = {
@@ -86,7 +88,7 @@ export default async function RootLayout({
       h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
     })(document);`}
         </script>
-      <meta name="theme-color" content="#0a0a1e"/>
+        <meta name="theme-color" content="#0a0a1e" />
       </head>
       <body className="bg-[#0a0a1e] overflow-x-hidden">
         <div className="gradient-background-fixed" />
@@ -99,7 +101,12 @@ export default async function RootLayout({
           </div>
         </div>
         <SanityLive />
-        <VisualEditing />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
       </body>
     </html>
   );

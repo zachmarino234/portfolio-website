@@ -2,6 +2,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { defineQuery } from "next-sanity";
+import { draftMode } from "next/headers";
 
 import PageMain from "@/components/PageMain";
 import Blockquote from "@/components/blocks/Blockquote";
@@ -236,12 +237,12 @@ function normalizeBlockType(_type: string) {
 export default async function ProjectPage({
 	params,
 }: {
-	params: PageParams;
+	params: Promise<{ slug: string }>;
 }) {
-	const { slug } = await params;
+
 	const { data } = await sanityFetch({
 		query: projectQuery,
-		params: { slug },
+		params,
 	});
 
 	const project = data as Project | null;
@@ -313,7 +314,7 @@ export default async function ProjectPage({
 			/>
 			<div className="project-page relative w-full flex flex-col items-center gap-24">
 				{heroUrl && (
-					<div className="pointer-events-none absolute -top-34 left-1/2 -z-10 h-[820px] w-[min(1600px,120vw)] -translate-x-1/2">
+					<div className="pointer-events-none absolute -top-34 left-1/2 -z-10 h-205 w-[min(1600px,120vw)] -translate-x-1/2">
 						<Image
 							src={heroUrl}
 							alt={project.title}
@@ -346,7 +347,7 @@ export default async function ProjectPage({
 										key={heading._key}
 										text={heading.heading || ""}
 										level={heading.level}
-										className="w-full max-w-[1112px]"
+										className="w-full max-w-278"
 									/>
 								);
 							}
@@ -362,7 +363,7 @@ export default async function ProjectPage({
 									<TextBlock
 										key={textBlock._key}
 										text={fullText}
-										className="w-full max-w-[1112px]"
+										className="w-full max-w-278"
 									/>
 								);
 							}
@@ -372,7 +373,7 @@ export default async function ProjectPage({
 									<Blockquote
 										key={quote._key}
 										text={quote.text || ""}
-										className="w-full max-w-[524px]"
+										className="w-full max-w-131"
 									/>
 								);
 							}
@@ -386,7 +387,7 @@ export default async function ProjectPage({
 										src={src}
 										alt={imageBlock.alt}
 										caption={imageBlock.caption}
-										className="w-full max-w-[1112px]"
+										className="w-full max-w-278"
 									/>
 								);
 							}
@@ -439,7 +440,7 @@ export default async function ProjectPage({
 								return (
 									<div
 										key={embed._key}
-										className="w-full max-w-[1112px] flex flex-col gap-4"
+										className="w-full max-w-278 flex flex-col gap-4"
 									>
 										{embed.title && (
 											<h2 className="text-lg font-semibold tracking-tight">
