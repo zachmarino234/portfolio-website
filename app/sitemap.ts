@@ -5,10 +5,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const projects = [
     'no-pool-productions',
-    'dow-jones',
+    'around-town',
     'catalog8h',
     'pitch',
-    'abacus',
+    'fantasy-sportsball',
   ]
 
   const projectUrls = projects.map((project) => ({
