@@ -2,7 +2,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { defineQuery } from "next-sanity";
-import { draftMode } from "next/headers";
 
 import PageMain from "@/components/PageMain";
 import Blockquote from "@/components/blocks/Blockquote";
@@ -13,6 +12,7 @@ import CarouselBlock from "@/components/blocks/CarouselBlock";
 import ColumnsBlock from "@/components/blocks/ColumnsBlock";
 import ProjectOnePager from "@/components/ProjectOnePager";
 import IframeLoader from "@/components/IFrameLoader";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/lib/image";
@@ -303,6 +303,7 @@ export default async function ProjectPage({
 
 	return (
 		<PageMain>
+			<ScrollProgressBar />
 			<ProjectSchema
 				name={project.title}
 				description={
