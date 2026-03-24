@@ -12,6 +12,10 @@ export interface ImageBlockProps {
   showCaption?: boolean;
   /** Optional wrapper classes to control width/layout from parent */
   className?: string;
+  /** Controls the image frame shape for different layouts */
+  aspect?: "video" | "square";
+  /** Controls how the image scales inside the frame */
+  fit?: "contain" | "cover" | "width";
 }
 
 export default function ImageBlock({
@@ -20,13 +24,15 @@ export default function ImageBlock({
   caption,
   showCaption = true,
   className,
+  aspect = "video",
+  fit = "width",
 }: ImageBlockProps) {
   const wrapperClasses = [
     "relative",
     "flex",
     "flex-col",
     "items-start",
-    "overflow-hidden",
+    fit === "width" ? "overflow-visible" : "overflow-hidden",
     "rounded-2xl",
     "border",
     "border-white/10",
@@ -36,16 +42,44 @@ export default function ImageBlock({
     .filter(Boolean)
     .join(" ");
 
+  const imageAreaClasses = [
+    "relative",
+    "w-full",
+    "overflow-hidden",
+    "rounded-[inherit]",
+    fit === "width" ? "" : aspect === "square" ? "aspect-square" : "aspect-video",
+    fit === "width" ? "" : "bg-[#060616]",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <figure className={wrapperClasses} data-name="Image Block">
       {/* Image area */}
-      <div className="relative w-full aspect-558/536">
-        <Image src={src} alt={alt} fill className="object-cover" />
+      <div className={imageAreaClasses}>
+        {fit === "width" ? (
+          <Image
+            src={src}
+            alt={alt}
+            width={0}
+            height={0}
+            sizes="(max-width: 768px) 100vw, 1112px"
+            className="block h-auto w-full"
+          />
+        ) : (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 1112px"
+            className={fit === "cover" ? "object-cover" : "object-contain"}
+          />
+        )}
       </div>
 
       {/* Caption overlay */}
       {showCaption && caption && (
-        <div className=" absolute left-1/2 bottom-0 -translate-x-1/2">
+        <div className="absolute left-1/2 bottom-0 -translate-x-1/2">
           <Caption text={caption} />
         </div>
       )}

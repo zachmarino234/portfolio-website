@@ -46,6 +46,8 @@ export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
           src={rightImage.src}
           alt={rightImage.alt ?? ""}
           caption={rightImage.caption}
+          aspect="square"
+          fit="cover"
         />
       </div>
     </div>
