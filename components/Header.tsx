@@ -66,10 +66,10 @@ const Header = ({ projects = [] }: HeaderProps) => {
 
     return (
         <header
-            className={`fixed inset-x-0 top-3 z-40 flex justify-center px-3 sm:top-4 sm:px-0 transition-all duration-300 ${isVisible || isOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-full"
+            className={`fixed left-1/2 top-3 z-40 flex w-full max-w-6xl -translate-x-1/2 justify-center px-4 sm:top-4 sm:px-6 lg:px-8 transition-all duration-300 ${isVisible || isOpen ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-full"
                 }`}
         >
-            <div className="flex w-full max-w-6xl items-center justify-between gap-3 sm:gap-6 rounded-2xl bg-[#0a0a1e]/85 border border-white/10 px-3 py-2 sm:px-6 sm:py-3 shadow-lg">
+            <div className="flex w-full max-w-278 items-center justify-between gap-3 sm:gap-6 rounded-2xl bg-[#0a0a1e]/85 border border-white/10 px-3 py-2 sm:px-6 sm:py-3 shadow-lg">
                 <Link
                     href={"/"}
                     className="font-title text-md sm:text-3xl ml-3 mb-3 text-white hover:text-purple-400 transition-colors"
