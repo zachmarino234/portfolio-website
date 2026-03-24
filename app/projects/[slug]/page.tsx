@@ -357,13 +357,11 @@ export default async function ProjectPage({
 								const bodyText = blocksToPlainText(
 									textBlock.body as unknown[],
 								);
-								const fullText = [textBlock.title, bodyText]
-									.filter(Boolean)
-									.join("\n\n");
 								return (
 									<TextBlock
 										key={textBlock._key}
-										text={fullText}
+										heading={textBlock.title}
+										text={bodyText}
 										className="w-full max-w-278"
 									/>
 								);
