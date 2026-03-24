@@ -109,7 +109,7 @@ export default function ScrollProgressBar() {
           onClick={handleBackToTop}
           className="fixed right-4 bottom-5 z-50 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm transition-opacity"
         >
-          Back to top ↑
+          back to top ↑
         </button>
       )}
     </>
