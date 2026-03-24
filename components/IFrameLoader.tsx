@@ -5,7 +5,7 @@ const IframeLoader = ({ src, title, ...props }: { src: string, title: string }) 
     const [isLoading, setIsLoading] = useState(true);
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '500px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '700px' }}>
             {isLoading && (
                 <div
                     className='animate-pulse bg-black/50'
