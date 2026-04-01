@@ -4,24 +4,42 @@ import { LuMail } from "react-icons/lu";
 
 const SocialIcons = () => {
     return (
-        <div className="flex gap-3 sm:gap-5">
-            <Link href={"mailto:hello@zmarino.com"} aria-label="Email">
-                <LuMail className="w-5 h-5" />
+        <div className="flex gap-2">
+            <Link
+                href={"mailto:hello@zmarino.com"}
+                aria-label="Email"
+                className="win-btn"
+                style={{ padding: "2px 6px", fontSize: "11px" }}
+            >
+                <LuMail style={{ width: "12px", height: "12px" }} />
             </Link>
-            <Link href={"https://www.linkedin.com/in/zach-marino/"} aria-label="Linkedin Link" target="_blank">
-                <FaLinkedin className="w-5 h-5" />
+            <Link
+                href={"https://www.linkedin.com/in/zach-marino/"}
+                aria-label="LinkedIn"
+                target="_blank"
+                className="win-btn"
+                style={{ padding: "2px 6px", fontSize: "11px" }}
+            >
+                <FaLinkedin style={{ width: "12px", height: "12px" }} />
             </Link>
-            <Link href={"https://github.com/zachmarino234"} aria-label="Github Link" target="_blank">
-                <FaGithub className="w-5 h-5" />
+            <Link
+                href={"https://github.com/zachmarino234"}
+                aria-label="GitHub"
+                target="_blank"
+                className="win-btn"
+                style={{ padding: "2px 6px", fontSize: "11px" }}
+            >
+                <FaGithub style={{ width: "12px", height: "12px" }} />
             </Link>
-            <Link href={"https://www.behance.net/zacharymarino"} aria-label="Behance Link" target="_blank">
-                <FaSquareBehance className="w-5 h-5" />
+            <Link
+                href={"https://www.behance.net/zacharymarino"}
+                aria-label="Behance"
+                target="_blank"
+                className="win-btn"
+                style={{ padding: "2px 6px", fontSize: "11px" }}
+            >
+                <FaSquareBehance style={{ width: "12px", height: "12px" }} />
             </Link>
-
-
-
-
-
         </div>
     );
 }
