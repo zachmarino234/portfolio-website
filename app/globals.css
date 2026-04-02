@@ -8,6 +8,7 @@
   --font-body: 'sofia-pro';
 }
 
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
