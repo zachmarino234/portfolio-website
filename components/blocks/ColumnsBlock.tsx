@@ -1,10 +1,12 @@
 import React from "react";
+import type { PortableTextBlock } from "@portabletext/types";
 import Blockquote from "./Blockquote";
 import ImageBlock from "./ImageBlock";
+import { InlineTextRenderer } from "@/components/PortableTextRenderer";
 
 export interface ColumnsBlockLeft {
   heading?: string;
-  text?: string;
+  body?: PortableTextBlock[];
   quote?: string;
 }
 
@@ -20,8 +22,6 @@ export interface ColumnsBlockProps {
 }
 
 export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
-  const paragraphs = (left.text ?? "").split(/\n\n+/).filter(Boolean);
-
   return (
     <div
       className="w-full max-w-[1112px] flex flex-wrap items-start justify-center gap-8 md:gap-8"
@@ -31,11 +31,9 @@ export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
         {left.heading && (
           <h2 className="text-[22px] font-semibold text-white">{left.heading}</h2>
         )}
-        {paragraphs.length > 0 && (
+        {left.body && left.body.length > 0 && (
           <div className="text-[16px] leading-relaxed text-white space-y-4">
-            {paragraphs.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            <InlineTextRenderer value={left.body} />
           </div>
         )}
         {left.quote && <Blockquote text={left.quote} className="w-full" />}

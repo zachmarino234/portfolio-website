@@ -2,53 +2,17 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { defineQuery } from "next-sanity";
+import type { PortableTextBlock } from "@portabletext/types";
 
 import PageMain from "@/components/PageMain";
-import Blockquote from "@/components/blocks/Blockquote";
-import ImageBlock from "@/components/blocks/ImageBlock";
-import HeadingBlock from "@/components/blocks/HeadingBlock";
-import TextBlock from "@/components/blocks/TextBlock";
-import CarouselBlock from "@/components/blocks/CarouselBlock";
-import ColumnsBlock from "@/components/blocks/ColumnsBlock";
 import ProjectOnePager from "@/components/ProjectOnePager";
-import IframeLoader from "@/components/IFrameLoader";
+import { ContentRenderer } from "@/components/PortableTextRenderer";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/lib/image";
 import { client } from "@/sanity/lib/client";
 import './styles.css';
-
-type OnePager = {
-	title: string;
-	brief: string;
-	context: string;
-	toolsAndMethods: string[];
-	team: string;
-	timeline: string;
-	insights: string;
-	deliverables: string;
-};
-
-type HeadingBlockData = {
-	_key: string;
-	_type: "headingBlock";
-	heading?: string;
-	level?: "h2" | "h3";
-};
-
-type TextBlockData = {
-	_key: string;
-	_type: "textBlock";
-	title?: string;
-	body?: unknown[];
-};
-
-type QuoteBlockData = {
-	_key: string;
-	_type: "blockquote";
-	text?: string;
-};
 
 type ImageValue = {
 	_type: "image";
@@ -57,57 +21,6 @@ type ImageValue = {
 	} | null;
 };
 
-type ImageBlockData = {
-	_key: string;
-	_type: "imageBlock";
-	image?: ImageValue;
-	alt?: string;
-	caption?: string;
-	hideCaption?: boolean;
-};
-
-type CarouselImageBlock = {
-	_key: string;
-	_type: "imageBlock";
-	image?: ImageValue;
-	alt?: string;
-	caption?: string;
-	hideCaption?: boolean;
-};
-
-type CarouselBlockData = {
-	_key: string;
-	_type: "carouselBlock";
-	images?: CarouselImageBlock[];
-};
-
-type EmbedBlockData = {
-	_key: string;
-	_type: "embedBlock";
-	title?: string;
-	url?: string;
-};
-
-type ColumnsBlockData = {
-	_key: string;
-	_type: "columnsBlock";
-	leftHeading?: string;
-	leftBody?: unknown[];
-	leftQuote?: {
-		text?: string;
-	} | null;
-	rightImage?: ImageBlockData;
-};
-
-type ProjectBlock =
-	| HeadingBlockData
-	| TextBlockData
-	| QuoteBlockData
-	| ImageBlockData
-	| CarouselBlockData
-	| ColumnsBlockData
-	| EmbedBlockData;
-
 type Project = {
 	_id: string;
 	slug: string;
@@ -115,17 +28,17 @@ type Project = {
 	shortDescription?: string;
 	heroImage?: ImageValue;
 	cardTags?: string[];
-	brief?: unknown[];
-	context?: unknown[];
+	brief?: PortableTextBlock[];
+	context?: PortableTextBlock[];
 	toolsAndMethods?: {
 		category?: string;
 		items?: string[];
 	}[];
 	team?: string[];
 	timeline?: string;
-	insights?: unknown[];
-	deliverables?: unknown[];
-	content?: ProjectBlock[];
+	insights?: PortableTextBlock[];
+	deliverables?: PortableTextBlock[];
+	content?: PortableTextBlock[];
 };
 
 const projectQuery = defineQuery(`
@@ -230,10 +143,6 @@ function getImageUrl(image?: ImageValue) {
 	}
 }
 
-function normalizeBlockType(_type: string) {
-	return _type;
-}
-
 export default async function ProjectPage({
 	params,
 }: {
@@ -253,29 +162,6 @@ export default async function ProjectPage({
 
 	const heroUrl = getImageUrl(project.heroImage);
 
-	// Derive one-pager fields from the flat project schema
-	const blocksToPlainText = (blocks?: unknown[]): string => {
-		if (!blocks || !Array.isArray(blocks)) return "";
-		return blocks
-			.map((block) => {
-				const blockWithChildren = block as { children?: unknown[] };
-				const children = Array.isArray(blockWithChildren.children)
-					? blockWithChildren.children
-					: [];
-				return children
-					.map((child) => {
-						const childWithText = child as { text?: unknown };
-						return typeof childWithText.text === "string"
-							? childWithText.text
-							: "";
-					})
-					.join("");
-			})
-			.filter(Boolean)
-			.join("\n\n")
-			.trim();
-	};
-
 	const toolsAndMethodsLines: string[] = (project.toolsAndMethods || []).flatMap(
 		(group) => {
 			if (!group) return [];
@@ -289,17 +175,6 @@ export default async function ProjectPage({
 			return [];
 		},
 	);
-
-	const onePager: OnePager = {
-		title: project.title,
-		brief: blocksToPlainText(project.brief),
-		context: blocksToPlainText(project.context),
-		toolsAndMethods: toolsAndMethodsLines,
-		team: (project.team || []).join(", "),
-		timeline: project.timeline || "",
-		insights: blocksToPlainText(project.insights),
-		deliverables: blocksToPlainText(project.deliverables),
-	};
 
 	return (
 		<PageMain>
@@ -327,136 +202,18 @@ export default async function ProjectPage({
 				)}
 
 				<ProjectOnePager
-					title={onePager.title || project.title}
-					brief={onePager.brief}
-					context={onePager.context}
-					toolsAndMethods={onePager.toolsAndMethods}
-					team={onePager.team}
-					timeline={onePager.timeline}
-					insights={onePager.insights}
-					deliverables={onePager.deliverables}
+					title={project.title}
+					brief={project.brief || []}
+					context={project.context || []}
+					toolsAndMethods={toolsAndMethodsLines}
+					team={(project.team || []).join(", ")}
+					timeline={project.timeline || ""}
+					insights={project.insights || []}
+					deliverables={project.deliverables || []}
 				/>
 
 				<div className="w-full flex flex-col items-center gap-16 mt-10">
-					{(project.content ?? []).map((block: ProjectBlock) => {
-						const baseType = normalizeBlockType(block._type);
-						switch (baseType) {
-							case "headingBlock": {
-								const heading = block as HeadingBlockData;
-								return (
-									<HeadingBlock
-										key={heading._key}
-										text={heading.heading || ""}
-										level={heading.level}
-										className="w-full max-w-278"
-									/>
-								);
-							}
-							case "textBlock": {
-								const textBlock = block as TextBlockData;
-								const bodyText = blocksToPlainText(
-									textBlock.body as unknown[],
-								);
-								return (
-									<TextBlock
-										key={textBlock._key}
-										heading={textBlock.title}
-										text={bodyText}
-										className="w-full max-w-278"
-									/>
-								);
-							}
-							case "blockquote": {
-								const quote = block as QuoteBlockData;
-								return (
-									<Blockquote
-										key={quote._key}
-										text={quote.text || ""}
-										className="w-full max-w-131"
-									/>
-								);
-							}
-							case "imageBlock": {
-								const imageBlock = block as ImageBlockData;
-								const src = getImageUrl(imageBlock.image);
-								if (!src) return null;
-								return (
-									<ImageBlock
-										key={imageBlock._key}
-										src={src}
-										alt={imageBlock.alt}
-										caption={imageBlock.caption}
-										className="w-full max-w-278"
-									/>
-								);
-							}
-							case "carouselBlock": {
-								const carousel = block as CarouselBlockData;
-								const images = (carousel.images || [])
-									.reduce<{ src: string; alt?: string }[]>((acc, imageBlock) => {
-										if (!imageBlock?.image) return acc;
-										const src = getImageUrl(imageBlock.image);
-										if (!src) return acc;
-										acc.push({ src, alt: imageBlock.alt });
-										return acc;
-									}, []);
-
-								if (!images.length) return null;
-
-								return (
-									<CarouselBlock
-										key={carousel._key}
-										images={images}
-									/>
-								);
-							}
-							case "columnsBlock": {
-								const columns = block as ColumnsBlockData;
-								const src = getImageUrl(columns.rightImage?.image);
-								if (!src) return null;
-								const leftBodyText = blocksToPlainText(
-									columns.leftBody as unknown[],
-								);
-								return (
-									<ColumnsBlock
-										key={columns._key}
-										left={{
-											heading: columns.leftHeading,
-											text: leftBodyText,
-											quote: columns.leftQuote?.text,
-										}}
-										rightImage={{
-											src,
-											alt: columns.rightImage?.alt,
-											caption: columns.rightImage?.caption,
-										}}
-									/>
-								);
-							}
-							case "embedBlock": {
-								const embed = block as EmbedBlockData;
-								if (!embed.url) return null;
-								return (
-									<div
-										key={embed._key}
-										className="w-full max-w-278 flex flex-col gap-4"
-									>
-										{embed.title && (
-											<h2 className="text-lg font-semibold tracking-tight">
-												{embed.title}
-											</h2>
-										)}
-										<IframeLoader
-											src={embed.url}
-											title={embed.title || "Embedded content"}
-										/>
-									</div>
-								);
-							}
-							default:
-								return null;
-						}
-					})}
+					<ContentRenderer value={project.content || []} />
 				</div>
 			</div>
 		</PageMain>
