@@ -46,6 +46,16 @@ export default defineType({
         'Used as the full-bleed background on the project page and as the hero image on the home page project card.',
     }),
     defineField({
+      name: 'hoverVideo',
+      title: 'Card hover video',
+      type: 'file',
+      options: {
+        accept: 'video/*',
+      },
+      description:
+        'Optional. Plays on the home page project card when hovered. The hero image is shown as the poster/fallback. Keep it short, muted, and lightweight (e.g. a looping mp4).',
+    }),
+    defineField({
       name: 'cardTags',
       title: 'Card tags',
       type: 'array',

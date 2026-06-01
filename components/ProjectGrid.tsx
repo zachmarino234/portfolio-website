@@ -16,6 +16,7 @@ type ProjectForGrid = {
     title: string;
     shortDescription?: string;
     heroImage?: ImageValue;
+    hoverVideoUrl?: string | null;
     cardTags?: string[];
     displayOrder?: number;
 };
@@ -27,6 +28,7 @@ const projectsForGridQuery = defineQuery(`
     title,
     shortDescription,
     heroImage,
+    "hoverVideoUrl": hoverVideo.asset->url,
     cardTags,
         "displayOrder": orderRank
     } | order(coalesce(displayOrder, 999) asc, title asc)
@@ -67,6 +69,7 @@ const ProjectGrid = async () => {
                         shortDescription={project.shortDescription}
                         tags={project.cardTags}
                         heroImageUrl={heroUrl}
+                        hoverVideoUrl={project.hoverVideoUrl ?? undefined}
                         orderLabel={orderLabel}
                     />
                 );
