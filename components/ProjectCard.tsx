@@ -49,7 +49,7 @@ const ProjectCard = ({
             className="group relative flex w-full max-w-[650px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a1e]/85 shadow-sm transition duration-300 hover:bg-[#0a0a1e] hover:shadow-[0_4px_4px_2px_rgba(0,0,0,0.25)]"
         >
             {displayOrder !== undefined && (
-                <span className="pointer-events-none absolute left-3 top-3 z-10 rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-xs font-medium text-white/80">
+                <span className="pointer-events-none absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-xs font-medium text-white/80">
                     {String(displayOrder).padStart(2, "0")}
                 </span>
             )}
