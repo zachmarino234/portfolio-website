@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Zach Marino',
     images: [
       {
-        url: '/images/OG_image.png',
+        url: '/images/OG_image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zach Marino Logo',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Zach Marino',
     description: 'Multi-hyphenate UX designer and web developer focused on media and entertainment',
-    images: ['/images/OG_image.png'],
+    images: ['/images/OG_image.jpg'],
   },
 };
 
