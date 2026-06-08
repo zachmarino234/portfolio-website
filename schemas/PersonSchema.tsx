@@ -6,8 +6,8 @@ export function PersonSchema() {
         '@type': 'Person',
         name: 'Zach Marino',
         url: 'https://zmarino.com',
-        jobTitle: 'UX Designer & Web Developer',
-        description: 'Multi-hyphenate UX designer and web developer focused on media and entertainment',
+        jobTitle: 'Product Designer & Web Developer',
+        description: 'Multi-hyphenate product designer and web developer focused on media and entertainment',
         alumniOf: [
             {
                 '@type': 'EducationalOrganization',

@@ -12,10 +12,10 @@ import { defineQuery } from "next-sanity";
 
 export const metadata: Metadata = {
   title: "Zach Marino",
-  description: "Multi-hyphenate UX designer and web developer focused on media and entertainment",
+  description: "Multi-hyphenate product designer and web developer focused on media and entertainment",
   openGraph: {
     title: 'Zach Marino',
-    description: 'Multi-hyphenate UX designer and web developer focused on media and entertainment',
+    description: 'Multi-hyphenate product designer and web developer focused on media and entertainment',
     url: 'https://www.zmarino.com',
     siteName: 'Zach Marino',
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Zach Marino',
-    description: 'Multi-hyphenate UX designer and web developer focused on media and entertainment',
+    description: 'Multi-hyphenate product designer and web developer focused on media and entertainment',
     images: ['/images/OG_image.jpg'],
   },
 };
