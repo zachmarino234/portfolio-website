@@ -20,10 +20,6 @@ export default function Home() {
           <SocialIcons />
         </div>
       </div>
-      <div className="flex flex-col gap-4 p-4 max-w-2xl rounded-2xl bg-[#0a0a1e]/85 border border-white/10">
-        <h2 className="text-xl sm:text-2xl font-bold">pardon the dust!</h2>
-        <p>I am currently migrating my projects to a new <a href="https://www.sanity.io/" className="underline" target="_blank">CMS</a>. All project pages now have a useful one-pager and embedded deliverables, but I am still working on the detailed writeups!</p>
-      </div>
 
       <ProjectGrid />
     </PageMain>
