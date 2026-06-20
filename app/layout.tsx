@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./gradientbg.css";
-import Header from "@/components/Header";
+import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SanityLive, sanityFetch } from "@/sanity/live";
@@ -40,6 +40,7 @@ type ProjectForMenu = {
   slug: string;
   title: string;
   deliverableName?: string;
+  seoDescription?: string;
   displayOrder?: number;
 };
 
@@ -48,6 +49,7 @@ const projectsForMenuQuery = defineQuery(`
     "slug": slug.current,
     title,
     deliverableName,
+    "seoDescription": shortDescription,
     "displayOrder": orderRank
   } | order(coalesce(displayOrder, 999) asc, title asc)
 `);
@@ -65,12 +67,14 @@ export default async function RootLayout({
     slug: string;
     title: string;
     deliverableName?: string;
+    seoDescription?: string;
   }
 
   const projectsForMenu: ProjectForMenu[] = (data ?? []).map((project: ProjectDataForMenu) => ({
     slug: project.slug,
     title: project.title,
     deliverableName: project.deliverableName,
+    seoDescription: project.seoDescription,
   }));
 
   return (
@@ -94,7 +98,7 @@ export default async function RootLayout({
         <div className="gradient-background-fixed" />
         <div className="relative z-10 flex min-h-screen w-full justify-center">
           <div className="w-full max-w-6xl gap-10 px-4 sm:px-6 lg:px-8 py-7 sm:py-14 flex flex-col items-center">
-            <Header projects={projectsForMenu} />
+            <MenuOverlay projects={projectsForMenu} />
             {children}
             <Analytics />
             <Footer />

@@ -18,7 +18,7 @@ export default function PageMain({
     "w-full",
     "flex-col",
     "items-center",
-    "pt-20",
+    "pt-10",
     minHeight ? "min-h-screen" : "",
     withGap ? "gap-10" : "",
   ]

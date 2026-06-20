@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <PageMain minHeight={false}>
       <PersonSchema />
-      <div className="fixed bottom-0 left-0 -z-10 hidden sm:block">
+      <div className="w-full max-w-5xl px-6 sm:px-10">
         <HomePageSVG />
       </div>
       <div className="flex flex-col gap-2.5 px-10 sm:px-16  max-w-3xl">
