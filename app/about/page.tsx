@@ -4,15 +4,11 @@ import PageMain from "@/components/PageMain";
 import { PersonSchema } from "@/schemas/PersonSchema";
 import SocialIcons from "@/components/SocialIcons";
 import IframeLoader from "@/components/IFrameLoader";
-import HomePageSVG from "@/components/homePageSVG";
 
 export default function About() {
     return (
         <PageMain>
             <PersonSchema />
-            <div className="fixed bottom-0 left-0 -z-10 hidden sm:block">
-                <HomePageSVG />
-            </div>
             <div className="flex flex-col w-full md:flex-row gap-10 items-center">
                 <div className="flex flex-col gap-3">
                     <p>
