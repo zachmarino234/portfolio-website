@@ -12,7 +12,7 @@ export default function About() {
             <div className="flex flex-col w-full md:flex-row gap-10 items-center">
                 <div className="flex flex-col gap-3">
                     <p>
-                        Zach Marino is a multi-hyphenate product designer and web developer focused on the media and entertainment space. He serves as the brand designer and developer for No Pool Productions, a theatrical production startup, where he designed the brand identity and website. Previously, he has worked as a Product Designer at Dow Jones and also spent eight months as a Product Manager at Boston Globe Media. He is set to graduate from Northeastern University with a Masters in Experience Design after completing his bachelors degree in three years.
+                        Zach Marino is a product designer and web developer with a background in the media and entertainment space. He serves as the brand designer and developer for No Pool Productions, a theatrical production startup, where he designed the brand identity and website. Previously, he has worked as a Product Designer at Dow Jones and also spent eight months as a Product Manager at Boston Globe Media. He graduated from Northeastern University with a Masters in Experience Design after completing his bachelors degree in three years.
                     </p>
                     <p>
                         In his free time, Zach likes to discover new music, watch baseball, and see Operation Mincemeat on Broadway arguably more often than a person should.
