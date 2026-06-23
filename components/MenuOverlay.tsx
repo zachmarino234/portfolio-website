@@ -27,10 +27,14 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
     const [isRevealed, setIsRevealed] = useState(false); // circle expanded to full viewport
     const [showContent, setShowContent] = useState(false); // menu content faded/staggered in
     const [origin, setOrigin] = useState({ x: 0, y: 0, r: 0 });
+    const [copied, setCopied] = useState(false); // email copied-to-clipboard confirmation
 
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const overlayRef = useRef<HTMLDivElement | null>(null);
     const timers = useRef<number[]>([]);
+    const copyTimer = useRef<number | null>(null);
+
+    const EMAIL = "hello@zmarino.com";
 
     const prefersReducedMotion = () =>
         typeof window !== "undefined" &&
@@ -98,6 +102,19 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
 
     const toggle = () => (isOpen ? close() : open());
 
+    // Copy the email to the clipboard and briefly confirm (instead of opening a
+    // mail client). Falls back silently if the Clipboard API is unavailable.
+    const copyEmail = useCallback(async () => {
+        try {
+            await navigator.clipboard.writeText(EMAIL);
+            setCopied(true);
+            if (copyTimer.current) window.clearTimeout(copyTimer.current);
+            copyTimer.current = window.setTimeout(() => setCopied(false), 2000);
+        } catch {
+            // Clipboard unavailable (e.g. insecure context) -- no-op.
+        }
+    }, []);
+
     // Measure on mount (and on resize) so the collapsed circle is already
     // centered on the button before the first click — otherwise the first
     // reveal interpolates its center from the top-left corner.
@@ -120,6 +137,12 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
 
     // Clear any pending timers on unmount.
     useEffect(() => clearTimers, [clearTimers]);
+    useEffect(
+        () => () => {
+            if (copyTimer.current) window.clearTimeout(copyTimer.current);
+        },
+        [],
+    );
 
     // Build the focus-trap list: every focusable element in the overlay, plus the
     // toggle button (which lives outside the overlay but acts as the close control).
@@ -242,12 +265,55 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
                     pointerEvents: isOpen ? "auto" : "none",
                 }}
             >
-                <div className="relative z-10 mx-auto flex min-h-full w-full max-w-5xl flex-col justify-between gap-16 px-6 pb-16 pt-28 sm:px-10 sm:pt-32">
+                <div className="relative z-10 mx-auto flex min-h-full w-full max-w-5xl flex-col gap-8 px-6 pb-16 pt-28 sm:px-10 sm:pt-32">
+                    {/* Contact + secondary links */}
+                    <div
+                        data-show={showContent}
+                        className="menu-content-item flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between"
+                    >
+                        <div className="flex flex-col gap-3">
+                            <h2 className="font-body text-sm uppercase tracking-[0.25em] text-white/50">
+                                Contact
+                            </h2>
+                            <button
+                                type="button"
+                                onClick={copyEmail}
+                                aria-label={copied ? "Email address copied to clipboard" : "Copy email address"}
+                                className="mirror-group font-body cursor-pointer text-left text-2xl sm:text-3xl"
+                            >
+                                <MirrorText>{copied ? "copied!" : EMAIL}</MirrorText>
+                            </button>
+                            <div className="mt-2">
+                                <SocialIcons />
+                            </div>
+                        </div>
+
+                        <nav aria-label="Secondary" className="flex items-center gap-4 text-base">
+                            <Link
+                                href="/about"
+                                onClick={close}
+                                className="font-body rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                            >
+                                About
+                            </Link>
+                            <Link
+                                href="/Public Resume - Zach Marino.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => isOpen && close()}
+                                className="font-body rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                            >
+                                Resume ↗
+                            </Link>
+                        </nav>
+                    </div>
+
                     {/* Projects */}
-                    <nav aria-label="Projects">
+                    <nav aria-label="Projects" className="border-t border-white/10 pt-10">
                         <h2
                             data-show={showContent}
                             className="menu-content-item font-body mb-6 text-sm uppercase tracking-[0.25em] text-white/50 sm:mb-8"
+                            style={{ transitionDelay: "60ms" }}
                         >
                             Work
                         </h2>
@@ -258,7 +324,7 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
                                         key={project.slug}
                                         data-show={showContent}
                                         className="menu-content-item"
-                                        style={{ transitionDelay: `${i * 55}ms` }}
+                                        style={{ transitionDelay: `${i * 55 + 60}ms` }}
                                     >
                                         <Link
                                             href={`/projects/${project.slug}`}
@@ -281,49 +347,6 @@ const MenuOverlay = ({ projects = [] }: MenuOverlayProps) => {
                             )}
                         </ul>
                     </nav>
-
-                    {/* Contact + secondary links */}
-                    <div
-                        data-show={showContent}
-                        className="menu-content-item flex flex-col gap-10 border-t border-white/10 pt-10 sm:flex-row sm:items-end sm:justify-between"
-                        style={{ transitionDelay: `${projects.length * 55 + 40}ms` }}
-                    >
-                        <div className="flex flex-col gap-3">
-                            <h2 className="font-body text-sm uppercase tracking-[0.25em] text-white/50">
-                                Contact
-                            </h2>
-                            <Link
-                                href="mailto:hello@zmarino.com"
-                                className="mirror-group font-title text-2xl sm:text-3xl"
-                            >
-                                <MirrorText>hello@zmarino.com</MirrorText>
-                            </Link>
-                            <div className="mt-2">
-                                <SocialIcons />
-                            </div>
-                        </div>
-
-                        <nav aria-label="Secondary" className="flex items-center gap-4 text-base">
-                            <Link
-                                href="/about"
-                                onClick={close}
-                                className="mirror-pill font-body"
-                            >
-                                <span aria-hidden="true" className="mirror-pill__face" />
-                                <span className="mirror-pill__label">About</span>
-                            </Link>
-                            <Link
-                                href="/Public Resume - Zach Marino.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => isOpen && close()}
-                                className="mirror-pill font-body"
-                            >
-                                <span aria-hidden="true" className="mirror-pill__face" />
-                                <span className="mirror-pill__label">Resume ↗</span>
-                            </Link>
-                        </nav>
-                    </div>
                 </div>
             </div>
         </>
