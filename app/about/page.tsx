@@ -31,7 +31,7 @@ export default function About() {
             </div>
             <h2 className="self-start text-xl sm:text-2xl font-bold mt-10 -mb-5">upcoming website changes</h2>
             <p className="self-start -mb-5">This site is designed and coded by me. Upcoming changes can be viewed here!</p>
-            <IframeLoader src="https://embed.figma.com/design/zoC5CHeYEI1w5E0z6AXj6c/Portfolio?node-id=0-1&embed-host=share" title="Figma file showcasing upcoming changes for the website"></IframeLoader>
+            <IframeLoader src="https://embed.figma.com/design/CcpVgZ02dqBftlr8gLgN6C/Ghost-Portfolio?node-id=0-1&embed-host=share" title="Figma file showcasing upcoming changes for the website"></IframeLoader>
 
         </PageMain>
     );
