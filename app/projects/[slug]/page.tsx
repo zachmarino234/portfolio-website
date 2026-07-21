@@ -4,15 +4,18 @@ import type { Metadata } from "next";
 import { defineQuery } from "next-sanity";
 import type { PortableTextBlock } from "@portabletext/types";
 
-import PageMain from "@/components/PageMain";
 import ProjectOnePager from "@/components/ProjectOnePager";
 import { ContentRenderer } from "@/components/PortableTextRenderer";
-import ScrollProgressBar from "@/components/ScrollProgressBar";
+import GoBackSticker from "@/components/GoBackSticker";
+import ProjectTitleSticker from "@/components/project/ProjectTitleSticker";
+import ProjectGradient from "@/components/project/ProjectGradient";
+import { themeGradientColor } from "@/lib/projectTheme";
+import HomeFooter from "@/components/home/HomeFooter";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/lib/image";
 import { client } from "@/sanity/lib/client";
-import './styles.css';
+import type { SanityHsl } from "@/lib/projectTheme";
 
 type ImageValue = {
 	_type: "image";
@@ -38,6 +41,7 @@ type Project = {
 	timeline?: string;
 	insights?: PortableTextBlock[];
 	deliverables?: PortableTextBlock[];
+	cardColorHsl?: SanityHsl | null;
 	content?: PortableTextBlock[];
 };
 
@@ -57,6 +61,7 @@ const projectQuery = defineQuery(`
 	timeline,
 	insights,
 	deliverables,
+	"cardColorHsl": cardColor.hsl,
     content[]{
 	      ...,
 	      image,
@@ -162,23 +167,23 @@ export default async function ProjectPage({
 
 	const heroUrl = getImageUrl(project.heroImage);
 
-	const toolsAndMethodsLines: string[] = (project.toolsAndMethods || []).flatMap(
+	// The design shows tools & methods as flat pills. Flatten each group to its
+	// items; when a group has no items, fall back to its category as the pill
+	// label (existing content stores the method name in `category`).
+	const toolsAndMethods: string[] = (project.toolsAndMethods || []).flatMap(
 		(group) => {
 			if (!group) return [];
+			const items = (Array.isArray(group.items) ? group.items : [])
+				.map((item) => item?.trim())
+				.filter(Boolean) as string[];
+			if (items.length) return items;
 			const category = group.category?.trim();
-			const items = Array.isArray(group.items) ? group.items : [];
-			if (category && items.length) {
-				return [`${category}: ${items.join(", ")}`];
-			}
-			if (category) return [category];
-			if (items.length) return [items.join(", ")];
-			return [];
+			return category ? [category] : [];
 		},
 	);
 
 	return (
-		<PageMain>
-			<ScrollProgressBar />
+		<div className="project-page relative w-full bg-[#faf7f1] text-[#1e1e1e]">
 			<ProjectSchema
 				name={project.title}
 				description={
@@ -188,35 +193,51 @@ export default async function ProjectPage({
 				url={`https://zmarino.com/projects/${project.slug}`}
 				image={heroUrl}
 			/>
-			<div className="project-page relative w-full flex flex-col items-center gap-24">
-				{heroUrl && (
-					<div className="pointer-events-none absolute -top-34 left-1/2 -z-10 h-205 w-[min(1600px,120vw)] -translate-x-1/2">
+
+			{/* Full-bleed hero image with the title sticker straddling its
+			    bottom-left edge. The sticker is absolutely positioned so it does
+			    not push the gradient down — the gradient butts directly against
+			    the image with no gap. */}
+			{heroUrl && (
+				<div className="relative w-full">
+					<div className="relative h-[60vh] max-h-[850px] min-h-[320px] w-full overflow-hidden">
 						<Image
 							src={heroUrl}
 							alt={project.title}
 							fill
 							priority
 							className="object-cover"
+							sizes="100vw"
 						/>
 					</div>
-				)}
+					<div className="absolute bottom-0 left-4 z-20 translate-y-1/2 sm:left-10">
+						<ProjectTitleSticker title={project.title} />
+					</div>
+				</div>
+			)}
 
+			{/* Sticky "GO BACK" sticker overlays the whole page from the top-left. */}
+			<GoBackSticker />
+
+			{/* Tinted, hue-derived band behind the one-pager and content. */}
+			<ProjectGradient hsl={project.cardColorHsl}>
 				<ProjectOnePager
-					title={project.title}
 					brief={project.brief || []}
 					context={project.context || []}
-					toolsAndMethods={toolsAndMethodsLines}
+					toolsAndMethods={toolsAndMethods}
 					team={(project.team || []).join(", ")}
 					timeline={project.timeline || ""}
 					insights={project.insights || []}
 					deliverables={project.deliverables || []}
 				/>
 
-				<div className="w-full flex flex-col items-center gap-16 mt-10">
+				<div className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-16 px-6 pb-24 sm:px-10">
 					<ContentRenderer value={project.content || []} />
 				</div>
-			</div>
-		</PageMain>
+			</ProjectGradient>
+
+			<HomeFooter bottomColor={themeGradientColor(project.cardColorHsl)} />
+		</div>
 	);
 }
 

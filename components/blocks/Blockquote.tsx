@@ -25,11 +25,11 @@ export default function Blockquote({ text, className }: BlockquoteProps) {
 
   return (
     <figure className={wrapperClasses} data-name="Blockquote">
-      <div className="h-0.5 w-full bg-white" />
-      <blockquote className="text-center text-white font-semibold text-md sm:text-xl">
+      <div className="h-0.5 w-full bg-[#1e1e1e]" />
+      <blockquote className="text-center text-[#1e1e1e] font-semibold text-md sm:text-xl">
         {text}
       </blockquote>
-      <div className="h-0.5 w-full bg-white" />
+      <div className="h-0.5 w-full bg-[#1e1e1e]" />
     </figure>
   );
 }

@@ -28,38 +28,38 @@ function getImageUrl(image?: ImageValue) {
 export const contentComponents: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="w-full max-w-278 font-semibold text-white text-2xl sm:text-[28px]">
+      <h2 className="w-full max-w-278 font-bold uppercase text-[#1e1e1e] text-2xl sm:text-[28px]">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="w-full max-w-278 font-semibold text-white text-xl sm:text-2xl">
+      <h3 className="w-full max-w-278 font-bold uppercase text-[#1e1e1e] text-xl sm:text-2xl">
         {children}
       </h3>
     ),
     normal: ({ children }) => (
-      <p className="w-full max-w-278 text-[12px] leading-relaxed text-white">
+      <p className="w-full max-w-278 text-base leading-relaxed text-[#1e1e1e] sm:text-2xl sm:leading-9">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
       <figure className="flex flex-col items-center justify-center gap-4 w-full max-w-2xl mx-auto py-4">
-        <div className="h-0.5 w-full bg-white" />
-        <blockquote className="text-center text-white font-semibold text-md sm:text-xl">
+        <div className="h-0.5 w-full bg-[#1e1e1e]" />
+        <blockquote className="text-center text-[#1e1e1e] font-semibold text-md sm:text-xl">
           {children}
         </blockquote>
-        <div className="h-0.5 w-full bg-white" />
+        <div className="h-0.5 w-full bg-[#1e1e1e]" />
       </figure>
     ),
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="w-full max-w-278 list-disc pl-5 text-[12px] leading-relaxed text-white space-y-1">
+      <ul className="w-full max-w-278 list-disc pl-5 text-base leading-relaxed text-[#1e1e1e] space-y-1 sm:text-2xl sm:leading-9">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="w-full max-w-278 list-decimal pl-5 text-[12px] leading-relaxed text-white space-y-1">
+      <ol className="w-full max-w-278 list-decimal pl-5 text-base leading-relaxed text-[#1e1e1e] space-y-1 sm:text-2xl sm:leading-9">
         {children}
       </ol>
     ),
@@ -85,7 +85,7 @@ export const contentComponents: PortableTextComponents = {
   types: {
     // Legacy custom block types (backward compat for existing content)
     headingBlock: ({ value }) => (
-      <h2 className="w-full max-w-278 font-semibold text-white text-2xl sm:text-[28px]">
+      <h2 className="w-full max-w-278 font-bold uppercase text-[#1e1e1e] text-2xl sm:text-[28px]">
         {value.heading}
       </h2>
     ),
@@ -94,12 +94,12 @@ export const contentComponents: PortableTextComponents = {
       return (
         <div className="w-full max-w-278">
           {value.title && (
-            <h2 className="font-semibold text-white text-2xl sm:text-[28px] mb-6">
+            <h2 className="font-bold uppercase text-[#1e1e1e] text-2xl sm:text-[28px] mb-6">
               {value.title}
             </h2>
           )}
           {body && (
-            <div className="text-[12px] leading-relaxed text-white space-y-4">
+            <div className="text-base leading-relaxed text-[#1e1e1e] space-y-4 sm:text-2xl sm:leading-9">
               <PortableText value={body} components={inlineTextComponents} />
             </div>
           )}
@@ -174,17 +174,23 @@ export const contentComponents: PortableTextComponents = {
  */
 export const inlineTextComponents: PortableTextComponents = {
   block: {
-    normal: ({ children }) => <p>{children}</p>,
+    normal: ({ children }) => (
+      <p className="text-base leading-relaxed sm:text-2xl sm:leading-9">{children}</p>
+    ),
     h2: ({ children }) => (
-      <h2 className="font-semibold text-white text-2xl sm:text-[28px]">{children}</h2>
+      <h2 className="font-bold uppercase text-[#1e1e1e] text-2xl sm:text-[28px]">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-semibold text-white text-xl sm:text-2xl">{children}</h3>
+      <h3 className="font-bold uppercase text-[#1e1e1e] text-xl sm:text-2xl">{children}</h3>
     ),
   },
   list: {
-    bullet: ({ children }) => <ul className="list-disc pl-5 space-y-1">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal pl-5 space-y-1">{children}</ol>,
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-5 space-y-1 text-base leading-relaxed sm:text-2xl sm:leading-9">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-5 space-y-1 text-base leading-relaxed sm:text-2xl sm:leading-9">{children}</ol>
+    ),
   },
   marks: {
     strong: ({ children }) => <strong className="font-semibold">{children}</strong>,

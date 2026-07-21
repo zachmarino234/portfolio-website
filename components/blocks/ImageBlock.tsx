@@ -35,8 +35,8 @@ export default function ImageBlock({
     fit === "width" ? "overflow-visible" : "overflow-hidden",
     "rounded-2xl",
     "border",
-    "border-white/10",
-    "bg-[#0A0A1E]",
+    "border-black/50",
+    "bg-white",
     className || "w-full max-w-xl",
   ]
     .filter(Boolean)
@@ -48,7 +48,7 @@ export default function ImageBlock({
     "overflow-hidden",
     "rounded-[inherit]",
     fit === "width" ? "" : aspect === "square" ? "aspect-square" : "aspect-video",
-    fit === "width" ? "" : "bg-[#060616]",
+    fit === "width" ? "" : "bg-white",
   ]
     .filter(Boolean)
     .join(" ");

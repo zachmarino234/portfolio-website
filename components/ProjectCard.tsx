@@ -11,8 +11,10 @@ interface ProjectCardProps {
     tags?: string[];
     heroImageUrl: string;
     hoverVideoUrl?: string;
-    orderLabel?: number;
+    cardColor?: string;
 }
+
+const DEFAULT_CARD_COLOR = "#0a0a1e";
 
 const ProjectCard = ({
     slug,
@@ -21,10 +23,9 @@ const ProjectCard = ({
     tags,
     heroImageUrl,
     hoverVideoUrl,
-    orderLabel,
+    cardColor,
 }: ProjectCardProps) => {
-    const tagsString = (tags || []).join(", ");
-    const displayOrder = typeof orderLabel === "number" ? orderLabel : undefined;
+    const pillTags = (tags || []).filter(Boolean);
     const videoRef = useRef<HTMLVideoElement>(null);
 
     const handleMouseEnter = () => {
@@ -46,20 +47,15 @@ const ProjectCard = ({
             aria-label={title}
             onMouseEnter={hoverVideoUrl ? handleMouseEnter : undefined}
             onMouseLeave={hoverVideoUrl ? handleMouseLeave : undefined}
-            className="group relative flex w-full max-w-[650px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a1e]/85 shadow-sm transition duration-300 hover:bg-[#0a0a1e] hover:shadow-[0_4px_4px_2px_rgba(0,0,0,0.25)]"
+            style={{ backgroundColor: cardColor || DEFAULT_CARD_COLOR }}
+            className="group relative flex h-full w-full max-w-[650px] flex-col overflow-hidden rounded-2xl border-[7.5px] border-white shadow-[0_2px_4px_0_rgba(0,0,0,0.25)] transition duration-300 hover:scale-[1.02] hover:shadow-[0_6px_12px_0_rgba(0,0,0,0.3)]"
         >
-            {displayOrder !== undefined && (
-                <span className="pointer-events-none absolute left-3 top-3 rounded-full border border-white/20 bg-black/40 px-2 py-0.5 text-xs font-medium text-white/80">
-                    {String(displayOrder).padStart(2, "0")}
-                </span>
-            )}
-
             <div className="relative h-[210px] w-full overflow-hidden sm:h-[280px]">
                 <Image
                     src={heroImageUrl}
                     alt={title}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover"
                     sizes="(min-width: 768px) 50vw, 100vw"
                 />
                 {hoverVideoUrl && (
@@ -77,23 +73,30 @@ const ProjectCard = ({
                 )}
             </div>
 
-            <div className="flex flex-col gap-5 pt-3 pb-5 px-4 text-white sm:px-7 sm:pt-5 sm:pb-7">
-                {tagsString && (
-                    <p className="small-caps self-center font-normal text-center text-white sm:text-left">
-                        {tagsString}
-                    </p>
-                )}
-
-                <div className="flex flex-col gap-2 whitespace-pre-wrap">
-                    <h3 className="text-base font-semibold leading-normal sm:text-xl sm:leading-8">
+            <div className="flex flex-1 flex-col justify-between gap-6 px-6 py-5 text-white sm:px-[30px]">
+                <div className="flex flex-col gap-4 whitespace-pre-wrap">
+                    <h3 className="text-lg font-bold uppercase leading-tight tracking-[0.48px] sm:text-2xl sm:leading-9">
                         {title}
                     </h3>
                     {shortDescription && (
-                        <p className="text-xs leading-5 text-white/80 sm:text-base sm:leading-[1.6]">
+                        <p className="text-sm leading-6 text-white/90 sm:text-lg sm:leading-[1.6]">
                             {shortDescription}
                         </p>
                     )}
                 </div>
+
+                {pillTags.length > 0 && (
+                    <div className="flex flex-wrap items-start justify-center gap-3">
+                        {pillTags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="rounded-full bg-white/10 px-2.5 py-[7px] text-sm text-white sm:text-base"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
             </div>
         </Link>
     );

@@ -72,6 +72,14 @@ export default defineType({
       description:
         'Short description shown on the home page project card and in any listings. Also safe to reuse for SEO.',
     }),
+    defineField({
+      name: 'cardColor',
+      title: 'Card / theme color',
+      type: 'color',
+      options: {disableAlpha: true},
+      description:
+        'Background color of the home page project card. Its hue also seeds the color theme for the project page. Leave blank to fall back to the default dark card.',
+    }),
 
     // One-pager (fixed structure shown at top of every project)
     defineField({
