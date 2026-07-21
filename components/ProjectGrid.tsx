@@ -18,6 +18,7 @@ type ProjectForGrid = {
     heroImage?: ImageValue;
     hoverVideoUrl?: string | null;
     cardTags?: string[];
+    cardColor?: string | null;
     displayOrder?: number;
 };
 
@@ -30,6 +31,7 @@ const projectsForGridQuery = defineQuery(`
     heroImage,
     "hoverVideoUrl": hoverVideo.asset->url,
     cardTags,
+    "cardColor": cardColor.hex,
         "displayOrder": orderRank
     } | order(coalesce(displayOrder, 999) asc, title asc)
 `);
@@ -57,9 +59,8 @@ const ProjectGrid = async () => {
 
     return (
         <section className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
-            {projects.map((project: ProjectForGrid, index: number) => {
+            {projects.map((project: ProjectForGrid) => {
                 const heroUrl = getImageUrl(project.heroImage)!;
-                const orderLabel = project.displayOrder ?? index + 1;
 
                 return (
                     <ProjectCard
@@ -70,7 +71,7 @@ const ProjectGrid = async () => {
                         tags={project.cardTags}
                         heroImageUrl={heroUrl}
                         hoverVideoUrl={project.hoverVideoUrl ?? undefined}
-                        orderLabel={orderLabel}
+                        cardColor={project.cardColor ?? undefined}
                     />
                 );
             })}

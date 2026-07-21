@@ -29,10 +29,10 @@ export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
     >
       <div className="flex-1 min-w-[250px] flex flex-col gap-8">
         {left.heading && (
-          <h2 className="text-[22px] font-semibold text-white">{left.heading}</h2>
+          <h2 className="text-[22px] font-bold uppercase text-[#1e1e1e]">{left.heading}</h2>
         )}
         {left.body && left.body.length > 0 && (
-          <div className="text-[16px] leading-relaxed text-white space-y-4">
+          <div className="text-[16px] leading-relaxed text-[#1e1e1e] space-y-4 sm:text-2xl sm:leading-9">
             <InlineTextRenderer value={left.body} />
           </div>
         )}

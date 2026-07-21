@@ -76,20 +76,20 @@ export default function CarouselBlock({ images, className }: CarouselBlockProps)
         type="button"
         aria-label="Previous image"
         onClick={handlePrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 h-[60px] w-[30px] bg-[rgba(10,10,30,0.85)] border border-white/10 flex items-center justify-center rounded-md"
+        className="absolute left-0 top-1/2 -translate-y-1/2 h-[60px] w-[30px] bg-white/85 border border-black/50 flex items-center justify-center rounded-md"
       >
         <span className="sr-only">Previous</span>
-        <span aria-hidden className="text-white"><ArrowLeft /></span>
+        <span aria-hidden className="text-[#1e1e1e]"><ArrowLeft /></span>
       </button>
 
       <button
         type="button"
         aria-label="Next image"
         onClick={handleNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 h-[60px] w-[30px] bg-[rgba(10,10,30,0.85)] border border-white/10 flex items-center justify-center rounded-md"
+        className="absolute right-0 top-1/2 -translate-y-1/2 h-[60px] w-[30px] bg-white/85 border border-black/50 flex items-center justify-center rounded-md"
       >
         <span className="sr-only">Next</span>
-        <span aria-hidden className="text-white"><ArrowRight /></span>
+        <span aria-hidden className="text-[#1e1e1e]"><ArrowRight /></span>
       </button>
     </div>
   );
