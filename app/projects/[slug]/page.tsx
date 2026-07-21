@@ -142,7 +142,12 @@ function getImageUrl(image?: ImageValue) {
 	if (!image || !image.asset || !image.asset._ref) return undefined;
 
 	try {
-		return urlFor(image).url();
+		// Cap the source Sanity pulls into Next's image optimizer. Without this
+		// the hero requests the full-resolution original (often several MB),
+		// which makes the first (cold-cache) load noticeably slow. 2000px covers
+		// a full-bleed hero on large/retina displays; `auto("format")` serves
+		// WebP/AVIF where supported. Mirrors the home grid's treatment.
+		return urlFor(image).width(2000).auto("format").url();
 	} catch {
 		return undefined;
 	}

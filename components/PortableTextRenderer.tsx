@@ -15,7 +15,11 @@ type ImageValue = {
 function getImageUrl(image?: ImageValue) {
   if (!image || !image.asset || !image.asset._ref) return undefined;
   try {
-    return urlFor(image).url();
+    // Cap the source resolution so Next's optimizer isn't pulling multi-MB
+    // originals for in-content images. Content columns are narrower than the
+    // hero, so 1600px is plenty even on retina; `auto("format")` serves
+    // WebP/AVIF where supported.
+    return urlFor(image).width(1600).auto("format").url();
   } catch {
     return undefined;
   }
