@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { defineQuery } from "next-sanity";
@@ -7,7 +6,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 import ProjectOnePager from "@/components/ProjectOnePager";
 import { ContentRenderer } from "@/components/PortableTextRenderer";
 import GoBackSticker from "@/components/GoBackSticker";
-import ProjectTitleSticker from "@/components/project/ProjectTitleSticker";
+import ProjectHero from "@/components/project/ProjectHero";
 import ProjectGradient from "@/components/project/ProjectGradient";
 import { themeGradientColor } from "@/lib/projectTheme";
 import HomeFooter from "@/components/home/HomeFooter";
@@ -202,24 +201,9 @@ export default async function ProjectPage({
 			{/* Full-bleed hero image with the title sticker straddling its
 			    bottom-left edge. The sticker is absolutely positioned so it does
 			    not push the gradient down — the gradient butts directly against
-			    the image with no gap. */}
-			{heroUrl && (
-				<div className="relative w-full">
-					<div className="relative h-[60vh] max-h-[850px] min-h-[320px] w-full overflow-hidden">
-						<Image
-							src={heroUrl}
-							alt={project.title}
-							fill
-							priority
-							className="object-cover"
-							sizes="100vw"
-						/>
-					</div>
-					<div className="absolute bottom-0 left-4 z-20 translate-y-1/2 sm:left-10">
-						<ProjectTitleSticker title={project.title} />
-					</div>
-				</div>
-			)}
+			    the image with no gap. ProjectHero also shows the loading sticker
+			    until the hero image has painted. */}
+			{heroUrl && <ProjectHero src={heroUrl} title={project.title} />}
 
 			{/* Sticky "GO BACK" sticker overlays the whole page from the top-left. */}
 			<GoBackSticker />
