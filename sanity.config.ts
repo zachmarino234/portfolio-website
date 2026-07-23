@@ -4,6 +4,7 @@ import { visionTool } from "@sanity/vision";
 import { colorInput } from "@sanity/color-input";
 import { schemaTypes } from "./sanity/schemas";
 import { presentationTool } from "sanity/presentation";
+import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 
 // The standalone studio runs at a different origin than the Next site, so the
 // presentation tool must be told where the site is rendered. Defaults to the
@@ -17,7 +18,25 @@ export default defineConfig({
   projectId: "4hlhry87",
   dataset: "production",
   plugins: [
-    structureTool(),
+    structureTool({
+      structure: (S, context) =>
+        S.list()
+          .title("Content")
+          .items([
+            // Drag-and-drop ordered list of projects. Dragging a card here
+            // rewrites only that card's rank string.
+            orderableDocumentListDeskItem({
+              type: "project",
+              title: "Projects (ordered)",
+              S,
+              context,
+            }),
+            // Keep every other document type in the default list.
+            ...S.documentTypeListItems().filter(
+              (item) => item.getId() !== "project",
+            ),
+          ]),
+    }),
     visionTool(),
     colorInput(),
     presentationTool({

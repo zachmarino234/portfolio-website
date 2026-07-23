@@ -17,9 +17,13 @@ import LoadingSticker from "@/components/LoadingSticker";
 export default function ProjectHero({
 	src,
 	title,
+	aspectRatio,
 }: {
 	src: string;
 	title: string;
+	// Source aspect ratio (width / height). When known, the hero preserves it
+	// on small viewports instead of cropping to a fixed height.
+	aspectRatio?: number;
 }) {
 	const [loaded, setLoaded] = useState(false);
 	const imgRef = useRef<HTMLImageElement>(null);
@@ -34,7 +38,18 @@ export default function ProjectHero({
 		<div className="relative w-full">
 			{!loaded && <LoadingSticker />}
 
-			<div className="relative h-[60vh] max-h-[850px] min-h-[320px] w-full overflow-hidden">
+			<div
+				className={`relative w-full overflow-hidden ${
+					aspectRatio
+						? "max-sm:aspect-(--hero-ar) max-sm:h-auto max-sm:max-h-none max-sm:min-h-0 "
+						: ""
+				}h-[60vh] max-h-[850px] min-h-[320px]`}
+				style={
+					aspectRatio
+						? ({ "--hero-ar": String(aspectRatio) } as React.CSSProperties)
+						: undefined
+				}
+			>
 				<Image
 					ref={imgRef}
 					src={src}

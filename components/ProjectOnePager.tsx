@@ -5,7 +5,7 @@ export interface ProjectOnePagerProps {
     brief: PortableTextBlock[];
     context: PortableTextBlock[];
     toolsAndMethods: string[];
-    team: string;
+    team: string[];
     timeline: string;
     insights: PortableTextBlock[];
     deliverables: PortableTextBlock[];
@@ -75,9 +75,15 @@ export default function ProjectOnePager({
                     <p className="text-base leading-relaxed text-[#1e1e1e] sm:text-2xl sm:leading-9">{timeline}</p>
                 </RailBlock>
 
-                <RailBlock label="Team">
-                    <p className="text-base leading-relaxed text-[#1e1e1e] sm:text-2xl sm:leading-9">{team}</p>
-                </RailBlock>
+                {team.length > 0 && (
+                    <RailBlock label="Team">
+                        <ul className="flex list-none flex-col gap-1 text-base leading-relaxed text-[#1e1e1e] sm:text-2xl sm:leading-9">
+                            {team.map((member) => (
+                                <li key={member}>{member}</li>
+                            ))}
+                        </ul>
+                    </RailBlock>
+                )}
 
                 {toolsAndMethods.length > 0 && (
                     <RailBlock label="Tools and Methods">

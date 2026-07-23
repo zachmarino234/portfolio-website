@@ -11,12 +11,12 @@ type FooterProject = {
 };
 
 const footerProjectsQuery = defineQuery(`
-  *[_type == "project" && defined(slug.current) && heroImage.asset != null]{
+  *[_type == "project" && defined(slug.current) && heroImage.asset != null]
+    | order(coalesce(orderRank, "zzzzzz") asc, title asc){
     "slug": slug.current,
     title,
     deliverableName,
-    "displayOrder": orderRank
-  } | order(coalesce(displayOrder, 999) asc, title asc)
+  }
 `);
 
 const linkClass =

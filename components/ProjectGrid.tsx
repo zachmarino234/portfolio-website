@@ -19,11 +19,11 @@ type ProjectForGrid = {
     hoverVideoUrl?: string | null;
     cardTags?: string[];
     cardColor?: string | null;
-    displayOrder?: number;
 };
 
 const projectsForGridQuery = defineQuery(`
-  *[_type == "project" && defined(slug.current) && heroImage.asset != null]{
+  *[_type == "project" && defined(slug.current) && heroImage.asset != null]
+    | order(coalesce(orderRank, "zzzzzz") asc, title asc){
     _id,
     "slug": slug.current,
     title,
@@ -32,8 +32,7 @@ const projectsForGridQuery = defineQuery(`
     "hoverVideoUrl": hoverVideo.asset->url,
     cardTags,
     "cardColor": cardColor.hex,
-        "displayOrder": orderRank
-    } | order(coalesce(displayOrder, 999) asc, title asc)
+    }
 `);
 
 function getImageUrl(image?: ImageValue) {

@@ -1,4 +1,5 @@
 import {defineType, defineField, defineArrayMember} from 'sanity'
+import {orderRankField} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'project',
@@ -198,12 +199,10 @@ export default defineType({
       ],
     }),
 
-    defineField({
-      name: 'orderRank',
-      title: 'Order',
-      type: 'number',
-      description: 'Order in which projects appear (lower numbers first).',
-    }),
+    // Drag-and-drop ordering (managed by @sanity/orderable-document-list).
+    // Reorder projects from the "Projects (ordered)" list in the Studio; only
+    // the moved document's rank changes, so no renumbering is ever needed.
+    orderRankField({type: 'project'}),
   ],
 
   preview: {

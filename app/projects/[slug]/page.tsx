@@ -135,6 +135,20 @@ export async function generateMetadata({
 	};
 }
 
+function getImageAspectRatio(image?: ImageValue): number | undefined {
+	// Sanity asset refs encode the source dimensions, e.g.
+	// `image-<id>-2000x3000-jpg`. Parsing them here lets the hero reserve the
+	// correct box up front (no layout shift) instead of waiting for onLoad.
+	const ref = image?.asset?._ref;
+	if (!ref) return undefined;
+	const match = /-(\d+)x(\d+)-/.exec(ref);
+	if (!match) return undefined;
+	const width = Number(match[1]);
+	const height = Number(match[2]);
+	if (!width || !height) return undefined;
+	return width / height;
+}
+
 function getImageUrl(image?: ImageValue) {
 	// Guard against images without a valid asset to avoid
 	// `Cannot read properties of null (reading '_ref')` inside image-url.
@@ -170,6 +184,7 @@ export default async function ProjectPage({
 	}
 
 	const heroUrl = getImageUrl(project.heroImage);
+	const heroAspectRatio = getImageAspectRatio(project.heroImage);
 
 	// The design shows tools & methods as flat pills. Flatten each group to its
 	// items; when a group has no items, fall back to its category as the pill
@@ -203,7 +218,13 @@ export default async function ProjectPage({
 			    not push the gradient down — the gradient butts directly against
 			    the image with no gap. ProjectHero also shows the loading sticker
 			    until the hero image has painted. */}
-			{heroUrl && <ProjectHero src={heroUrl} title={project.title} />}
+			{heroUrl && (
+				<ProjectHero
+					src={heroUrl}
+					title={project.title}
+					aspectRatio={heroAspectRatio}
+				/>
+			)}
 
 			{/* Sticky "GO BACK" sticker overlays the whole page from the top-left. */}
 			<GoBackSticker />
@@ -214,13 +235,13 @@ export default async function ProjectPage({
 					brief={project.brief || []}
 					context={project.context || []}
 					toolsAndMethods={toolsAndMethods}
-					team={(project.team || []).join(", ")}
+					team={project.team || []}
 					timeline={project.timeline || ""}
 					insights={project.insights || []}
 					deliverables={project.deliverables || []}
 				/>
 
-				<div className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-16 px-6 pb-24 sm:px-10">
+				<div className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-8 px-6 pb-24 sm:px-10">
 					<ContentRenderer value={project.content || []} />
 				</div>
 			</ProjectGradient>
