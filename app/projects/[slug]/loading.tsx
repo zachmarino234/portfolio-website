@@ -3,6 +3,7 @@
 // during navigation to /projects/[slug].
 import LoadingSticker from "@/components/LoadingSticker";
 
+
 export default function ProjectLoading() {
 	return <LoadingSticker />;
 }
