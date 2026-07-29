@@ -3,6 +3,7 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/live";
 import EmailCopy from "./EmailCopy";
 import SocialIcons from "../SocialIcons"
+import SmoothScrollLink from "./SmoothScrollLink";
 
 type FooterProject = {
   slug: string;
@@ -49,9 +50,9 @@ const HomeFooter = async ({
             <h2 className="text-2xl font-bold sm:text-3xl">HOME</h2>
             <ul className="flex flex-col gap-4 text-xl font-bold sm:text-2xl">
               <li>
-                <Link href="#about" className={linkClass}>
+                <SmoothScrollLink href="#about" className={linkClass}>
                   About Me
-                </Link>
+                </SmoothScrollLink>
               </li>
               <li>
                 <Link
