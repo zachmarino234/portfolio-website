@@ -14,7 +14,7 @@ const AboutSection = () => {
             Currently: Job hunting and doing freelance design work for Theatrely!
           </p>
           <p>
-            Hi I&rsquo;m Zach! I&rsquo;m a product designer and web developer
+            Hi I&rsquo;m Zach! I&rsquo;m a product professional and web developer
             with a background in the media and entertainment space. I&rsquo;m
             currently the brand designer and developer for No Pool Productions, a
             theatrical production startup, where I designed the brand identity
