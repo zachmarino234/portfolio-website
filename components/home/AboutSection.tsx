@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Headshot from "@/public/images/zach.png";
 import SocialIcons from "@/components/SocialIcons";
+import Link from "next/link";
 
 // About section for the redesigned home page. Text mirrors the Figma copy; the
 // headshot is framed as a slightly-tilted polaroid.
@@ -11,15 +12,23 @@ const AboutSection = () => {
       <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-5 text-base leading-relaxed sm:text-lg md:max-w-2xl">
           <p>
-            Currently: Job hunting and doing freelance design work for Theatrely!
+            Currently: Job hunting and doing freelance design work for <Link href="https://www.linkedin.com/posts/zach-marino_last-night-broadway-celebrated-the-79th-activity-7469771494370508800-KBxQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEB5ibkBNXcsd0eGj2RNuiWFUhD4561p1ic" target="_blank" rel="noopener noreferrer" className="underline">
+              Theatrely
+            </Link>
           </p>
           <p>
-            Hi I&rsquo;m Zach! I&rsquo;m a product professional and web developer
-            with a background in the media and entertainment space. I&rsquo;m
+            Hi I&rsquo;m Zach! I&rsquo;m a product generalist with a background in
+            the media and entertainment space. My work wears many hats — design,
+            strategy, computer science — but are all in pursuit of creating and
+            supporting projects I care about. Exploration guides my creative process,
+            and I do my best work when I can truly learn about and empathize with the people I&rsquo;m designing for.
+          </p>
+          <p>
+            I&rsquo;m
             currently the brand designer and developer for No Pool Productions, a
             theatrical production startup, where I designed the brand identity
-            and website. Previously, I worked as a Product Designer at Dow Jones
-            and also spent eight months as a Product Manager at Boston Globe
+            and website. Previously, I  was a product intern at Dow Jones
+            and also spent eight months as a product manager at Boston Globe
             Media. I graduated from Northeastern University with a Masters in
             Experience Design after completing my bachelors degree in three
             years.
