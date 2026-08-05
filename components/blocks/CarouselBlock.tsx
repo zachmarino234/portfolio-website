@@ -3,9 +3,12 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useLightbox } from '@/components/Lightbox';
 
 export interface CarouselImage {
   src: string;
+  /** Higher-resolution render for the click-to-enlarge overlay. */
+  zoomSrc?: string;
   alt?: string;
 }
 
@@ -17,6 +20,7 @@ export interface CarouselBlockProps {
 export default function CarouselBlock({ images, className }: CarouselBlockProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const openLightbox = useLightbox();
 
   const scrollToIndex = (index: number) => {
     if (!containerRef.current) return;
@@ -56,11 +60,11 @@ export default function CarouselBlock({ images, className }: CarouselBlockProps)
         ref={containerRef}
         className="absolute left-[49px] right-[49px] h-full flex items-center gap-2 overflow-x-auto overflow-y-hidden px-2 py-1 scroll-smooth"
       >
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className="relative h-full w-1/2 flex-none rounded-xl overflow-hidden"
-          >
+        {images.map((image, index) => {
+          // Only zoomable when a higher-res source exists AND a provider is present.
+          const canZoom = Boolean(image.zoomSrc && openLightbox);
+          const slideClasses = 'relative h-full w-1/2 flex-none rounded-xl overflow-hidden';
+          const picture = (
             <Image
               src={image.src}
               alt={image.alt ?? ''}
@@ -68,8 +72,28 @@ export default function CarouselBlock({ images, className }: CarouselBlockProps)
               className="object-contain"
               sizes=" 33vw, 100vw"
             />
-          </div>
-        ))}
+          );
+
+          // The slide element stays the direct child either way, so
+          // scrollToIndex's `offsetLeft` lookup is unaffected.
+          return canZoom ? (
+            <button
+              key={index}
+              type="button"
+              onClick={() =>
+                openLightbox?.({ src: image.src, fullSrc: image.zoomSrc, alt: image.alt })
+              }
+              aria-label={image.alt ? `Enlarge image: ${image.alt}` : 'Enlarge image'}
+              className={`${slideClasses} cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1e1e1e]`}
+            >
+              {picture}
+            </button>
+          ) : (
+            <div key={index} className={slideClasses}>
+              {picture}
+            </div>
+          );
+        })}
       </div>
 
       <button

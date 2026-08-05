@@ -12,6 +12,8 @@ export interface ColumnsBlockLeft {
 
 export interface ColumnsBlockRightImage {
   src: string;
+  /** Higher-resolution render for the click-to-enlarge overlay. */
+  zoomSrc?: string;
   alt?: string;
   caption?: string;
 }
@@ -42,6 +44,7 @@ export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
       <div className="w-full md:w-[578px] shrink-0">
         <ImageBlock
           src={rightImage.src}
+          zoomSrc={rightImage.zoomSrc}
           alt={rightImage.alt ?? ""}
           caption={rightImage.caption}
           aspect="square"

@@ -10,6 +10,7 @@ import ProjectHero from "@/components/project/ProjectHero";
 import ProjectGradient from "@/components/project/ProjectGradient";
 import { themeGradientColor } from "@/lib/projectTheme";
 import HomeFooter from "@/components/home/HomeFooter";
+import LightboxProvider from "@/components/Lightbox";
 import { ProjectSchema } from "@/schemas/ProjectSchema";
 import { sanityFetch } from "@/sanity/live";
 import { urlFor } from "@/sanity/lib/image";
@@ -166,6 +167,19 @@ function getImageUrl(image?: ImageValue) {
 	}
 }
 
+function getZoomImageUrl(image?: ImageValue) {
+	if (!image || !image.asset || !image.asset._ref) return undefined;
+
+	try {
+		// Source for the click-to-enlarge overlay. Larger and less compressed
+		// than the inline render, and only fetched once the reader clicks.
+		// Sanity never upscales past the original, so this is a ceiling.
+		return urlFor(image).width(3000).quality(95).auto("format").url();
+	} catch {
+		return undefined;
+	}
+}
+
 export default async function ProjectPage({
 	params,
 }: {
@@ -184,6 +198,7 @@ export default async function ProjectPage({
 	}
 
 	const heroUrl = getImageUrl(project.heroImage);
+	const heroZoomUrl = getZoomImageUrl(project.heroImage);
 	const heroAspectRatio = getImageAspectRatio(project.heroImage);
 
 	// The design shows tools & methods as flat pills. Flatten each group to its
@@ -213,38 +228,43 @@ export default async function ProjectPage({
 				image={heroUrl}
 			/>
 
-			{/* Full-bleed hero image with the title sticker straddling its
-			    bottom-left edge. The sticker is absolutely positioned so it does
-			    not push the gradient down — the gradient butts directly against
-			    the image with no gap. ProjectHero also shows the loading sticker
-			    until the hero image has painted. */}
-			{heroUrl && (
-				<ProjectHero
-					src={heroUrl}
-					title={project.title}
-					aspectRatio={heroAspectRatio}
-				/>
-			)}
+			{/* Images inside here are click-to-enlarge: the provider owns the
+			    darkened overlay that shows a higher-resolution render. */}
+			<LightboxProvider>
+				{/* Full-bleed hero image with the title sticker straddling its
+				    bottom-left edge. The sticker is absolutely positioned so it does
+				    not push the gradient down — the gradient butts directly against
+				    the image with no gap. ProjectHero also shows the loading sticker
+				    until the hero image has painted. */}
+				{heroUrl && (
+					<ProjectHero
+						src={heroUrl}
+						zoomSrc={heroZoomUrl}
+						title={project.title}
+						aspectRatio={heroAspectRatio}
+					/>
+				)}
 
-			{/* Sticky "GO BACK" sticker overlays the whole page from the top-left. */}
-			<GoBackSticker />
+				{/* Sticky "GO BACK" sticker overlays the whole page from the top-left. */}
+				<GoBackSticker />
 
-			{/* Tinted, hue-derived band behind the one-pager and content. */}
-			<ProjectGradient hsl={project.cardColorHsl}>
-				<ProjectOnePager
-					brief={project.brief || []}
-					context={project.context || []}
-					toolsAndMethods={toolsAndMethods}
-					team={project.team || []}
-					timeline={project.timeline || ""}
-					insights={project.insights || []}
-					deliverables={project.deliverables || []}
-				/>
+				{/* Tinted, hue-derived band behind the one-pager and content. */}
+				<ProjectGradient hsl={project.cardColorHsl}>
+					<ProjectOnePager
+						brief={project.brief || []}
+						context={project.context || []}
+						toolsAndMethods={toolsAndMethods}
+						team={project.team || []}
+						timeline={project.timeline || ""}
+						insights={project.insights || []}
+						deliverables={project.deliverables || []}
+					/>
 
-				<div className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-8 px-6 pb-24 sm:px-10">
-					<ContentRenderer value={project.content || []} />
-				</div>
-			</ProjectGradient>
+					<div className="mx-auto mt-16 flex w-full max-w-6xl flex-col items-center gap-8 px-6 pb-24 sm:px-10">
+						<ContentRenderer value={project.content || []} />
+					</div>
+				</ProjectGradient>
+			</LightboxProvider>
 
 			<HomeFooter bottomColor={themeGradientColor(project.cardColorHsl)} />
 		</div>

@@ -25,6 +25,19 @@ function getImageUrl(image?: ImageValue) {
   }
 }
 
+function getZoomImageUrl(image?: ImageValue) {
+  if (!image || !image.asset || !image.asset._ref) return undefined;
+  try {
+    // Source for the click-to-enlarge overlay: a much larger, lightly
+    // compressed render so zooming in actually reveals detail the inline
+    // version loses. Only fetched once the reader clicks, and Sanity never
+    // upscales past the original, so this is a ceiling rather than a resize.
+    return urlFor(image).width(3000).quality(95).auto("format").url();
+  } catch {
+    return undefined;
+  }
+}
+
 /**
  * Portable Text component config for the main content area.
  * Handles both native block styles and custom object types.
@@ -119,6 +132,7 @@ export const contentComponents: PortableTextComponents = {
       return (
         <ImageBlock
           src={src}
+          zoomSrc={getZoomImageUrl(value.image)}
           alt={value.alt}
           caption={value.caption}
           className="w-full max-w-278"
@@ -127,11 +141,14 @@ export const contentComponents: PortableTextComponents = {
     },
     carouselBlock: ({ value }) => {
       const images = (value.images || []).reduce(
-        (acc: { src: string; alt?: string }[], imageBlock: { image?: ImageValue; alt?: string }) => {
+        (
+          acc: { src: string; zoomSrc?: string; alt?: string }[],
+          imageBlock: { image?: ImageValue; alt?: string },
+        ) => {
           if (!imageBlock?.image) return acc;
           const src = getImageUrl(imageBlock.image);
           if (!src) return acc;
-          acc.push({ src, alt: imageBlock.alt });
+          acc.push({ src, zoomSrc: getZoomImageUrl(imageBlock.image), alt: imageBlock.alt });
           return acc;
         },
         [],
@@ -152,6 +169,7 @@ export const contentComponents: PortableTextComponents = {
           }}
           rightImage={{
             src,
+            zoomSrc: getZoomImageUrl(value.rightImage?.image),
             alt: value.rightImage?.alt,
             caption: value.rightImage?.caption,
           }}
