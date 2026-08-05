@@ -24,6 +24,12 @@ export interface ImageBlockProps {
   aspect?: "video" | "square";
   /** Controls how the image scales inside the frame */
   fit?: "contain" | "cover" | "width";
+  /**
+   * Rendered-width hint for the image optimizer. Defaults to the full-width
+   * content column; narrower placements (e.g. the one-pager columns) should
+   * pass their own so the browser doesn't fetch an oversized render.
+   */
+  sizes?: string;
 }
 
 export default function ImageBlock({
@@ -35,6 +41,7 @@ export default function ImageBlock({
   className,
   aspect = "video",
   fit = "width",
+  sizes = "(max-width: 768px) 100vw, 1112px",
 }: ImageBlockProps) {
   const openLightbox = useLightbox();
   // Only zoomable when a higher-res source exists AND a provider is present.
@@ -74,7 +81,7 @@ export default function ImageBlock({
           alt={alt}
           width={0}
           height={0}
-          sizes="(max-width: 768px) 100vw, 1112px"
+          sizes={sizes}
           className="block h-auto w-full"
         />
       ) : (
@@ -82,7 +89,7 @@ export default function ImageBlock({
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 100vw, 1112px"
+          sizes={sizes}
           className={fit === "cover" ? "object-cover" : "object-contain"}
         />
       )}

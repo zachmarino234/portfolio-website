@@ -87,9 +87,13 @@ export default defineType({
       name: 'brief',
       title: 'Design brief',
       type: 'array',
-      of: [defineArrayMember({type: 'block'})],
+      of: [
+        defineArrayMember({type: 'block'}),
+        defineArrayMember({type: 'imageBlock'}),
+      ],
       validation: (rule) => rule.required().min(1),
-      description: 'Full design brief – can include multiple paragraphs.',
+      description:
+        'Full design brief – can include multiple paragraphs and images. Images are sized to the width of the one-pager column.',
     }),
     defineField({
       name: 'context',
@@ -148,15 +152,25 @@ export default defineType({
       name: 'insights',
       title: 'Insights',
       type: 'array',
-      of: [defineArrayMember({type: 'block'})],
+      of: [
+        defineArrayMember({type: 'block'}),
+        defineArrayMember({type: 'imageBlock'}),
+      ],
       validation: (rule) => rule.required().min(1),
+      description:
+        'Can include images alongside the text. Images are sized to the width of the one-pager column.',
     }),
     defineField({
       name: 'deliverables',
       title: 'Deliverables',
       type: 'array',
-      of: [defineArrayMember({type: 'block'})],
+      of: [
+        defineArrayMember({type: 'block'}),
+        defineArrayMember({type: 'imageBlock'}),
+      ],
       validation: (rule) => rule.required().min(1),
+      description:
+        'Can include images alongside the text. Images are sized to the width of the one-pager column.',
     }),
 
     // Flexible content blocks below the one-pager

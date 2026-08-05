@@ -193,6 +193,10 @@ export const contentComponents: PortableTextComponents = {
 /**
  * Simpler component config for inline rich text (inside textBlock body,
  * one-pager fields, columns left body, etc.)
+ *
+ * Images are supported here too, but — unlike the main content area — they are
+ * never wider than the box they sit in: `w-full` with no `max-w`, so the
+ * surrounding column sets the size.
  */
 export const inlineTextComponents: PortableTextComponents = {
   block: {
@@ -227,6 +231,24 @@ export const inlineTextComponents: PortableTextComponents = {
         {children}
       </a>
     ),
+  },
+  types: {
+    imageBlock: ({ value }) => {
+      const src = getImageUrl(value.image);
+      if (!src) return null;
+      return (
+        <ImageBlock
+          src={src}
+          zoomSrc={getZoomImageUrl(value.image)}
+          alt={value.alt}
+          caption={value.caption}
+          showCaption={!value.hideCaption}
+          // No max-width: the image tracks the width of its containing box.
+          className="w-full"
+          sizes="(max-width: 1024px) 100vw, 718px"
+        />
+      );
+    },
   },
 };
 
