@@ -11,14 +11,11 @@ const AboutSection = () => {
       <h2 className="text-3xl font-bold sm:text-4xl">ABOUT ME</h2>
       <div className="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-5 text-base leading-relaxed sm:text-lg md:max-w-2xl">
-          <p>
-            Currently: Job hunting and doing freelance product work for <Link href="https://www.linkedin.com/posts/zach-marino_last-night-broadway-celebrated-the-79th-activity-7469771494370508800-KBxQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEB5ibkBNXcsd0eGj2RNuiWFUhD4561p1ic" target="_blank" rel="noopener noreferrer" className="underline">
+          <div className="font-bold">
+            Currently: Doing full-stack website design for agencies and theatrical productions, as well as freelance graphic design work for <Link href="https://lnkd.in/p/eucDSpt3" target="_blank" rel="noopener noreferrer" className="underline">
               Theatrely
-            </Link>
-            &nbsp;and finalizing the design and website development for <Link href="https://www.linkedin.com/company/no-pool-prods/" target="_blank" rel="noopener noreferrer" className="underline">
-              No Pool Productions
-            </Link>
-          </p>
+            </Link>.
+          </div>
           <p>
             Hi I&rsquo;m Zach! I&rsquo;m a product generalist with a background in
             the media and entertainment space. My work wears many hats — design,
@@ -28,11 +25,8 @@ const AboutSection = () => {
           </p>
           <p>
             I&rsquo;m
-            currently a freelance product designer for Theatrely, a Broadway media
-            company, where I am redesigning their social media templates,
-            among other projects. Previously, I  was a product intern at Dow Jones
-            and also spent eight months as a product manager at Boston Globe
-            Media. I graduated from Northeastern University with a Masters in
+            currently a full-stack website designer, working on theatrical productions and agency websites. Previously, I  was a product intern at Dow Jones
+            and also spent eight months as a product manager at The Boston Globe. I graduated from Northeastern University with a Masters in
             experience design after completing my Bachelors degree in computer science + design in three
             years.
           </p>
