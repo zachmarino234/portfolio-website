@@ -25,7 +25,7 @@ const AboutSection = () => {
           </p>
           <p>
             I&rsquo;m
-            currently a full-stack website designer, working on theatrical productions and agency websites. Previously, I  was a product intern at Dow Jones
+            currently a full-stack website designer, working on theatrical productions and agency websites. Previously, I was a product intern at Dow Jones
             and also spent eight months as a product manager at The Boston Globe. I graduated from Northeastern University with a Masters in
             experience design after completing my Bachelors degree in computer science + design in three years.
           </p>
