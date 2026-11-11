@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "ci": "payload migrate && next build",
     "start": "next start",
     "lint": "eslint",
-    "sanity:deploy": "sanity deploy",
-    "sanity:dev": "sanity dev"
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "migrate:sanity": "payload run scripts/migrate-from-sanity.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.3",
@@ -38,5 +41,6 @@
     "eslint-config-next": "16.0.3",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "type": "module"
 }

@@ -1,12 +1,11 @@
 import React from "react";
-import type { PortableTextBlock } from "@portabletext/types";
 import Blockquote from "./Blockquote";
 import ImageBlock from "./ImageBlock";
-import { InlineTextRenderer } from "@/components/PortableTextRenderer";
+import { InlineTextRenderer, type RichTextValue } from "@/components/RichText";
 
 export interface ColumnsBlockLeft {
   heading?: string;
-  body?: PortableTextBlock[];
+  body?: RichTextValue;
   quote?: string;
 }
 
@@ -33,11 +32,11 @@ export default function ColumnsBlock({ left, rightImage }: ColumnsBlockProps) {
         {left.heading && (
           <h2 className="text-[22px] font-bold uppercase text-[#1e1e1e]">{left.heading}</h2>
         )}
-        {left.body && left.body.length > 0 && (
+        {left.body?.root?.children?.length ? (
           <div className="text-[16px] leading-relaxed text-[#1e1e1e] space-y-4 sm:text-2xl sm:leading-9">
             <InlineTextRenderer value={left.body} />
           </div>
-        )}
+        ) : null}
         {left.quote && <Blockquote text={left.quote} className="w-full" />}
       </div>
 

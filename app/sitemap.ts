@@ -1,36 +1,25 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+import { getProjectList } from "@/lib/payload";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://zmarino.com'
+const baseUrl = "https://zmarino.com";
 
-  const projects = [
-    'no-pool-productions',
-    'around-town',
-    'catalog8h',
-    'pitch',
-    'fantasy-sportsball',
-  ]
-
-  const projectUrls = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+// Built from published projects, so new ones show up without code changes.
+// Re-rendered on publish along with everything else.
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const projects = await getProjectList();
 
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 1,
     },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    ...projectUrls,
-  ]
+    ...projects.map((project) => ({
+      url: `${baseUrl}/projects/${project.slug}`,
+      lastModified: new Date(project.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
 }

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 
 export interface BlockquoteProps {
   /** Quote text, expected to come from the CMS */
-  text: string;
+  text?: string;
+  /** Rich content (e.g. a rich-text quote). Takes precedence over `text`. */
+  children?: ReactNode;
   /** Optional extra classes so layouts can control width/spacing */
   className?: string;
 }
 
-export default function Blockquote({ text, className }: BlockquoteProps) {
+export default function Blockquote({ text, children, className }: BlockquoteProps) {
   const wrapperClasses = [
     "flex",
     "flex-col",
@@ -27,7 +29,7 @@ export default function Blockquote({ text, className }: BlockquoteProps) {
     <figure className={wrapperClasses} data-name="Blockquote">
       <div className="h-0.5 w-full bg-[#1e1e1e]" />
       <blockquote className="text-center text-[#1e1e1e] font-semibold text-md sm:text-xl">
-        {text}
+        {children ?? text}
       </blockquote>
       <div className="h-0.5 w-full bg-[#1e1e1e]" />
     </figure>

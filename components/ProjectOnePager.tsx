@@ -1,14 +1,13 @@
-import type { PortableTextBlock } from "@portabletext/types";
-import { InlineTextRenderer } from "@/components/PortableTextRenderer";
+import { InlineTextRenderer, type RichTextValue } from "@/components/RichText";
 
 export interface ProjectOnePagerProps {
-    brief: PortableTextBlock[];
-    context: PortableTextBlock[];
+    brief: RichTextValue;
+    context: RichTextValue;
     toolsAndMethods: string[];
     team: string[];
     timeline: string;
-    insights: PortableTextBlock[];
-    deliverables: PortableTextBlock[];
+    insights: RichTextValue;
+    deliverables: RichTextValue;
 }
 
 // A labelled block in the sticky left rail: a bold uppercase label above a value.
@@ -33,7 +32,7 @@ function ProseBlock({
     value,
 }: {
     label: string;
-    value: PortableTextBlock[];
+    value: RichTextValue;
 }) {
     return (
         <div className="flex w-full flex-col gap-2.5 p-2.5 backdrop-blur-[4px]">
