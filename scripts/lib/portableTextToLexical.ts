@@ -102,7 +102,7 @@ function inlineChildren(block: PTBlock): LexicalNode[] {
 
     if (linkKey) {
       if (!currentLink || currentLink.key !== linkKey) {
-        const href = markDefs.get(linkKey)?.href ?? "";
+        const href: string = markDefs.get(linkKey)?.href ?? "";
         currentLink = {
           key: linkKey,
           node: element("link", [], {
