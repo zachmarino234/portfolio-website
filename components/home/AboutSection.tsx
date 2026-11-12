@@ -16,23 +16,17 @@ const AboutSection = () => {
               Theatrely
             </Link>.
           </div>
-          <p>
-            Hi I&rsquo;m Zach! I&rsquo;m a product generalist with a background in
-            the media and entertainment space. My work wears many hats — design,
-            strategy, computer science — but are all in pursuit of creating and
-            supporting projects I care about. Exploration guides my creative process,
-            and I do my best work when I can truly learn about and empathize with the people I&rsquo;m designing for.
+          <p className="text-[16px]">
+            Hi I&rsquo;m Zach! I&rsquo;m a design engineer who brings a product manager&rsquo;s judgment to everything I design and build. Before I open Figma or write any code, I want to know who the work is for, what problem it solves, and what success looks like. In fact, I even write PRDs for myself to sort out project priorities and requirements. I&rsquo;ve worked as a PM, a designer, and an engineer, and the best work I&rsquo;ve done came from using skills from each discipline.
           </p>
-          <p>
-            I&rsquo;m
-            currently a full-stack website designer, working on theatrical productions and agency websites. Previously, I was a product intern at Dow Jones
-            and also spent eight months as a product manager at The Boston Globe. I graduated from Northeastern University with a Masters in
-            experience design after completing my Bachelors degree in computer science + design in three years.
+          <p className="text-[16px]">
+            Right now I design and build responsive full-stack websites for theatrical productions and creative agencies. Before that, I interned on the product team at Dow Jones, where I drove a major feature and the first AI-enabled feature to production for Dow Jones&rsquo; B2B product suite. I also spent eight months as a Product Manager at The Boston Globe
           </p>
-          <p>
-            In my free time, I like to discover new music, watch baseball,
-            explore cities with my camera, and see Operation Mincemeat on
-            Broadway arguably more often than a person should.
+          <p className="text-[16px]">
+            I earned a master&rsquo;s in Experience Design from Northeastern University, after graduating Magna Cum Laude with a bachelor&rsquo;s in Computer Science and Design. That interdisciplinary skill set is the foundation of how I work. It covers experience design theory, interaction design, full-stack software engineering, and in-depth research methods.
+          </p>
+          <p className="text-[16px]">
+            In my spare time, I love discovering new music, watching baseball, and catching a Broadway show (don&rsquo;t ask me how many times I&rsquo;ve seen Operation Mincemeat and Just In Time)
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-4">
             <span>Find me here:</span>
