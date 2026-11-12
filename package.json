@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "ci": "payload migrate && next build",
+    "build": "payload migrate && next build",
     "start": "next start",
     "lint": "eslint",
     "payload": "payload",
