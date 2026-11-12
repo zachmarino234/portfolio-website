@@ -162,7 +162,7 @@ export default function LightboxProvider({
 								{/* The inline render is already cached, so it paints
 								    immediately and defines the box the full-resolution
 								    version fades into. Plain <img> on both: these are
-								    pre-sized Sanity CDN URLs and running them back
+								    pre-sized media URLs and running them back
 								    through Next's optimizer would re-compress away the
 								    detail this overlay exists to show. */}
 								{/* eslint-disable-next-line @next/next/no-img-element */}

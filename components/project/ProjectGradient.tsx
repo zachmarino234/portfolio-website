@@ -1,18 +1,19 @@
 import type { ReactNode } from "react";
-import { themeGradientColor, type SanityHsl } from "@/lib/projectTheme";
+import { themeGradientColor } from "@/lib/projectTheme";
 
 // The tinted background band that sits behind the one-pager + content sections
 // (Figma nodes 89:400 / 92:273). A hue-derived color fades down into the cream
 // page background. The hue comes from the project's cardColor; saturation and
 // lightness are held constant for consistent, accessible contrast.
 export default function ProjectGradient({
-  hsl,
+  cardColor,
   children,
 }: {
-  hsl?: SanityHsl | null;
+  /** The project's hex card color; only its hue is used. */
+  cardColor?: string | null;
   children: ReactNode;
 }) {
-  const themeColor = themeGradientColor(hsl);
+  const themeColor = themeGradientColor(cardColor);
 
   return (
     <div className="relative w-full bg-[#faf7f1]">

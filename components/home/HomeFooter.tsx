@@ -1,24 +1,8 @@
 import Link from "next/link";
-import { defineQuery } from "next-sanity";
-import { sanityFetch } from "@/sanity/live";
+import { getProjectList } from "@/lib/payload";
 import EmailCopy from "./EmailCopy";
 import SocialIcons from "../SocialIcons"
 import SmoothScrollLink from "./SmoothScrollLink";
-
-type FooterProject = {
-  slug: string;
-  title: string;
-  deliverableName?: string;
-};
-
-const footerProjectsQuery = defineQuery(`
-  *[_type == "project" && defined(slug.current) && heroImage.asset != null]
-    | order(coalesce(orderRank, "zzzzzz") asc, title asc){
-    "slug": slug.current,
-    title,
-    deliverableName,
-  }
-`);
 
 const linkClass =
   "flex transition-opacity hover:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1e1e1e]";
@@ -33,8 +17,7 @@ const HomeFooter = async ({
 }: {
   bottomColor?: string;
 } = {}) => {
-  const { data } = await sanityFetch({ query: footerProjectsQuery });
-  const projects: FooterProject[] = data ?? [];
+  const projects = await getProjectList();
 
   return (
     <footer

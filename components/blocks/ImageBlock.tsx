@@ -5,7 +5,7 @@ import Caption from "./Caption";
 import { useLightbox } from "@/components/Lightbox";
 
 export interface ImageBlockProps {
-  /** Image URL – can come from Sanity or local /public */
+  /** Image URL – can come from Payload media or local /public */
   src: string;
   /**
    * Higher-resolution render used by the click-to-enlarge overlay. Omit to
