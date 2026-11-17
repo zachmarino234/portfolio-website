@@ -17,7 +17,7 @@ const AboutSection = () => {
             </Link>.
           </div>
           <p className="text-[16px]">
-            Hi I&rsquo;m Zach! I&rsquo;m a design engineer who brings a product manager&rsquo;s judgment to everything I design and build. Before I open Figma or write any code, I want to know who the work is for, what problem it solves, and what success looks like. In fact, I even write PRDs for myself to sort out project priorities and requirements. I&rsquo;ve worked as a PM, a designer, and an engineer, and the best work I&rsquo;ve done came from using skills from each discipline.
+            Hi I&rsquo;m Zach! I&rsquo;m a product designer who brings a product manager&rsquo;s judgment to everything I design and build. Before I open Figma or write any code, I want to know who the work is for, what problem it solves, and what success looks like. In fact, I even write PRDs for myself to sort out project priorities and requirements. I&rsquo;ve worked as a PM, a designer, and an engineer, and the best work I&rsquo;ve done came from using skills from each discipline.
           </p>
           <p className="text-[16px]">
             Right now I design and build responsive full-stack websites for theatrical productions and creative agencies. Before that, I interned on the product team at Dow Jones, where I drove a major feature and the first AI-enabled feature to production for Dow Jones&rsquo; B2B product suite. I also spent eight months as a Product Manager at The Boston Globe
